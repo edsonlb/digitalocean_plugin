@@ -1,0 +1,295 @@
+{% load humanize %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{empresa.nome|upper}} - {{imovel.finalidade}} {{imovel.cidade}} {{imovel.estado}} - {{imovel.bairro}} {{imovel.tipo|upper}} Imobiliaria</title>
+</head>
+<body>
+
+	<!-- css -->
+	<link rel="stylesheet" type="text/css" href="http://www.celuladigital.com.br/sistemas/globais/assets/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="http://www.c2imobiliaria.com.br/wp-content/themes/c2imobiliaria/style.css">
+	<link rel="stylesheet" type="text/css" href="http://www.celuladigital.com.br/sistemas/globais/assets/colorbox/colorbox.css">
+	<!-- JS -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://www.celuladigital.com.br/sistemas/globais/assets/js/jquery.cycle.lite.js"></script>
+	<script type="text/javascript" src="http://www.celuladigital.com.br/sistemas/globais/assets/colorbox/jquery.colorbox.js"></script>
+
+	<section id="imovel">
+		<header>
+			<div id="top" style="align: center; padding: 30px 0; margin-bottom: 20px;">
+				<img src="http://celuladigital.com.br/hospedagem/openwatto/img/logotipos/{{empresa.logo}}" border="0">
+			</div>
+		</header>
+		<div class="page">
+			<div id="flags">
+				<span class="flag-finalidade">{{ imovel.finalidade }}</span>
+				<span  class="flag-cidade">{{ imovel.cidade}}</span>
+				<span  class="flag-bairro">{{ imovel.bairro }}</span>
+				<span  class="flag-finalidade">{{ imovel.tipo }}</span>
+				<span class="flag-price">R$ {{ imovel.valor|cut:","|intcomma }}</span>
+				<div style="clear: both"></div>
+			</div>
+			<!-- /.flags -->
+
+			<div class="content-imovel">
+				<div class="left">
+					<div id="slideshow">
+						<ul>
+							{% for foto in imovel.fotos %}
+							<li>
+								<a href="http://www.celuladigital.com.br/sistemas/openwatto/imoveis/amfphp/services/imagens/{{ empresa.id_empresa }}/{{ foto.foto }}" class="cboxelement" rel="gallery">
+									<img class="image" src="http://www.celuladigital.com.br/sistemas/openwatto/imoveis/amfphp/services/imagens/{{ empresa.id_empresa }}/{{ foto.foto }}" />
+								</a>
+								<!--<p class="caption">{{imovel.descricao }}</p>-->
+							</li>
+							{% endfor %}
+						</ul>
+
+						<!-- Slide -->
+						<script type="text/javascript">
+							$(document).ready(function() {
+								$("#slideshow > ul").cycle();
+							});
+						</script>
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="right">
+					<div class="imovel-descricao">
+						{{ imovel.descricao }}
+					</div>
+
+					<div class="detalhes">
+						<ul class="table">
+							<li><span class="span-label">Código:</span>{{ imovel.cod_imovel }}</li>
+							<li><span class="span-label">Dormitorios:</span>{{ imovel.dormitorios }}</li>
+							<li><span class="span-label">Suite(s):</span>{{ imovel.suite }}</li>
+							<li><span class="span-label">Garagem:</span>{{ imovel.garagem }}</li>
+							<li><span class="span-label">Terreno:</span>{{ imovel.area_terreno}}m</li>
+							<li><span class="span-label">Construção:</span>{{ imovel.area_construida }}m</li>
+						</ul>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+			<div class="meta-imovel">
+				<div id="tagline">
+					<p>Gostou do imóvel? Entre em contato conosco.</p>
+				</div>
+
+				<div class="left">
+					<div class="maps">
+						<ul class="links-maps">
+							<li><a class="linksPreto" target="maps" href="http://maps.google.com/maps?f=q&source=s_q&hl=pt-BR&q=BAIRRO+ZONA%20RURAL,+JATA%CD%20-%20GO,+GO,+BRASIL&ie=UTF8&z=12&output=embed">Bairro</a></li>
+							<li><a class="linksPreto" target="maps" href="http://maps.google.com/maps?f=q&source=s_q&hl=pt-BR&q=JATA%CD%20-%20GO,+GO,+BRASIL&ie=UTF8&z=12&output=embed">Cidade</a></li>
+							<li><a class="linksPreto" target="maps" href="http://maps.google.com/maps?f=q&source=s_q&hl=pt-BR&q=GO,+BRASIL&ie=UTF8&z=5&output=embed">Estado</a></li>
+						</ul>
+
+						<iframe name="maps" width="400" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=pt-BR&amp;q=BAIRRO+{{ imovel.bairro }},+{{imovel.cidade}},+{{imovel.estado}}&amp;ie=UTF8&amp;z=12&amp;output=embed"></iframe>		  
+						<em>O mapa NÃO representa exatamente o local do imovel. </em>
+					</div>
+				</div>
+
+				<div class="right">
+					<div class="form">
+						<form method="POST" name="escolha" action="/pesquisa/{{empresa.site}}/imovel-{{imovel.cod_imovel}}/{% if imovel.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if imovel.finalidade == 'VENDA'%}vende-se{% endif %}{% if imovel.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{imovel.tipo|slugify}}-em-{{imovel.cidade|slugify}}-no-bairro-{{imovel.bairro|slugify}}">
+
+							<input name="id_imovel" type="hidden" id="id_imovel" value="{{imovel.id_imovel}}"/>
+							<input name="IMOVEL" type="hidden" id="IMOVEL" value="{{imovel.id_imovel}}"/>
+							<input name="email" type="hidden" id="email" value="{{empresa.email}}"/>
+							<input name="link" type="hidden" id="link" value="http://celuladigital.com.br/hospedagem/openwatto/buscaImovel/imovel.php?IMOVEL=171867"/>
+							<input name="acao" type="hidden" id="acao" value="EMAILIMOVEL"/>
+							<input name="cod_imovel" type="hidden" id="cod_imovel" value="{{imovel.cod_imovel}}"/>
+
+							<div class="form-row">
+								<label>Nome</label>
+								<input value="" name="nome" id="nome" class="required" style="width:200px" title="Informe o seu nome completo.">
+							</div>
+							<div class="form-row">
+								<label>Telefone</label>
+								<input value="" name="telefone" class="required validate-number" id="telefone" style="width:200px" title="Informe o seu ddd+telefone de contato. Ex:1634020373 (somente números)" maxlength="10">
+							</div>
+
+							<div class="form-row">
+								<label>Email</label>
+								<input value="" name="emailUsuario" id="emailUsuario" class="required validate-email" style="width:200px" title="Entre com um e-mail válido.">
+							</div>
+
+							<div class="form-row">
+								<label>Mensagem</label>
+								<textarea value="" name="mensagem" id="mensagem" cols="45" rows="8" class="required" style="width: 300px !important" title="Escreva uma mensagem."></textarea>
+							</div>
+							<div class="form-row">
+								<input type="submit" name="button" id="send-button" value="Enviar">
+							</div>
+
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+			{% if not imoveis_relacionados %}
+			<div id="relacionados">
+				<h3 class="title">Imóveis Relacionados</h3>
+				{% for relacionado in imoveis_relacionados %}
+				<div id="relacionado-{{ realacionado.id_imovel }}" class="item-imovel clearfix">
+					<div class="item-imovel-content">
+						<a href="window.open('http://imoveisemfranca.com.br/pesquisa/{{empresa.site}}/imovel-{{ relacionado.cod_imovel }}/{% if relacionado.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if relacionado.finalidade == 'VENDA'%}vende-se{% endif %}{% if relacionado.finalidade == 'TEMPORADA' %}temporada-em{% endif %}-{{ relacionado.tipo|slugify }}-em-{{ relacionado.cidade|slugify }}-no-bairro-{{ relacionado.bairro|slugify }}/', '_blank', 'width=900,height=600,scrollbars=yes') ">
+							<img src="http://www.celuladigital.com.br/sistemas/openwatto/imoveis/amfphp/services/imagens/{{ empresa.id_empresa }}/{{ relacionado.photo }}" width='180' height="136" />XXX
+							<p>{{ relacionado.finalidade }} > {{ relacionado.tipo }} > {{ relacionado.cidade }}<br>R$ {{ relacionado.valor|cut:","|intcomma }}</p>
+						</a>
+					</div> <!-- end .item-image -->
+				</div> <!-- end .item -->
+				{% endfor %}
+				<div class="clear"></div>
+			</div>
+			{% endif%}
+
+			<footer class="clear">
+				<p>&copy; 2013 {{ empresa.nome }}. Todos os direitos reservados</p>
+			</footer>
+			<div class="clear"></div>
+		</div>
+	</section>
+
+
+	<style type="text/css">
+		.left {
+			float: left;
+			width: 50%;
+		}
+		.right {
+			float: right;
+			width: 50%;
+		}
+		.right > div {
+			padding-left: 30px;
+			text-align: left !important;
+		}
+		ul, li {
+			list-style-type: none;
+		}
+		.page {
+			width: 800px;
+			margin: auto;
+		}
+		.clear {
+			clear: both;
+		}
+		.content-imovel {
+			margin-bottom: 30px;
+		}
+		#flags {
+			margin: 30px 0 20px;
+		}
+		#flags span:before {
+			content: ">";
+			font-weight: bold;
+			padding: 0 5px 0 15px;
+		}
+		#slideshow {
+			position: relative;
+			overflow: hidden;
+			width: 100%;
+			height: 300px;
+		}
+		#slideshow ul li > p {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			background: rgba(0,0,0,0.6);
+			color: #fff;
+			padding: 10px 10px 15px;
+		}
+		#slideshow ul li > a > img.image {
+			width: 400px !important;
+			height: 300px !important;
+		}
+		ul.table {
+			margin: 20px 0 0;
+		}
+		ul.table li {
+			display: table;
+			width: 100%;
+			padding: 1px 5px;
+		}
+		ul.table li > span.span-label {
+			display: inline-block;
+			width: 100px;
+		}
+		ul.detalhes li:nth-child(odd) {
+		}
+		h2.title {
+			color: #000;
+		}
+		.links-maps li {
+			display: inline-block;
+			padding: 5px 0;
+		}
+		.links-maps li:after {
+			content: "|";
+			padding: 0 5px;
+		}
+		.links-maps li:last-child:after {
+			content: "";
+		}
+		.form .form-row {
+			margin-bottom: 10px;
+		}
+		.form .form-row label,
+		.form .form-row input,
+		.form .form-row textarea {
+			display: block;
+			width: 80% !important;
+			text-align: left !important;
+		}
+		.form .form-row input[type=submit] {
+			width: auto !important;
+			float: none !important;
+		}
+		#relacionados {
+			margin: 30px 0;
+		}
+		#relacionados .item-imovel {
+			float: left;
+			width: 25%;
+		}
+		#relacionados .item-imovel .item-imovel-content {
+			padding: 0 10px;
+			text-align: center;
+		}
+		#relacionados .item-imovel .item-imovel-content p {
+			font-size: 12px;
+		}
+		#relacionados > h3.title {
+			display: block;
+			padding: 20px 0 30px;
+			text-align: left;
+		}
+
+		footer {
+			border-top: 1px solid;
+			margin: 20px 0 0;
+			padding: 20px 10px 10px;
+			text-align: left;
+			font-style: normal;
+		}
+	</style>
+
+	<!-- Slide -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".cboxelement").colorbox({rel: 'gallery'});
+		});
+	</script>
+
+</body>
+</html>
