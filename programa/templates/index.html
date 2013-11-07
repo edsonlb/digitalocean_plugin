@@ -62,15 +62,15 @@
 				<input type="text" name="TEXTO" id="TEXTO" placeholder="Texto" style="margin-bottom: 8px !important;width: 280px !important;">
 				-->
 				<select name="ORDEM" id="ORDEM">
-					<option  value="ORDENAR-PESQUISA-POR">ORDENAR PESQUISA POR</option>
-					<option  value="FINALIDADEBUSCA">FINALIDADE</option>
-					<option  value="TIPOBUSCA">TIPO</option>
-					<option  value="CIDADEBUSCA">CIDADE</option>
-					<option  value="BAIRROBUSCA">BAIRRO</option>
-					<option  value="QUARTOSMAIS">QUARTOS MAIS</option>
-					<option  value="QUARTOSMENOS">QUARTOS MENOS</option>
-					<option  value="VALORMAIOR">VALOR MAIOR</option>
-					<option  value="VALORMENOR">VALOR MENOR</option>
+					<option  value="-valor">ORDENAR PESQUISA POR</option>
+					<option  value="finalidade">FINALIDADE</option>
+					<option  value="tipo">TIPO</option>
+					<option  value="cidade">CIDADE</option>
+					<option  value="bairro">BAIRRO</option>
+					<option  value="dormitorios">QUARTOS MAIS</option>
+					<option  value="-dormitorios">QUARTOS MENOS</option>
+					<option  value="-valor">VALOR MAIOR</option>
+					<option  value="valor">VALOR MENOR</option>
 				</select>
 				<input type="submit" name="button" class="button" value="Pesquisar" style="width: auto !important; cursor: pointer !important;">
 			</fieldset>
@@ -110,6 +110,7 @@
 				{% endfor %}
 			</ul>
 		</article>
+
 		{% endif %}
 	</div>
 	<!-- /.filter-links -->
@@ -130,23 +131,29 @@
 		Busca Imóveis: >> Menor Valor
 	</div>
 	{% endif %}
+	
 
-	<div class="paginator">
-    	{% if num_pages %}
-        <div class="paginator-pages clear">
-            <ul>
-                {% for p in num_pages %}
-                {% if noticias.number == p %}
-                <li><span class="active">{{ p }}</span></li>
-                {% else %}
-                <li><a href="?page={{ p }}">{{ p }}</a></li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-	</div>
 	<!-- /.paginator -->
+	<div class="paginator">
+			<ul>
+				{% if imoveis.has_previous %}
+				<li><a href="#{% if url %}{{ url }}{% endif %}/?page={{ imoveis.previous_page_number }}">Página Anterior</a></li>
+				{% if imoveis.has_next %}|{% endif %}
+				{% endif %}
+				{% if imoveis.has_next %}
+				{% for x in num_pages %}
+				{% if imoveis.number == x %}
+					|<b><a href="#{% if url %}{{ url }}{% endif %}/?page={{ x }}"> {{ x }}</b></a>|
+				{% else %}
+					<a href="#{% if url %}{{ url }}{% endif %}/?page={{ x }}">{{ x }}</a>
+				{% endif %}
+					
+				{% endfor s%}
+				<li><a href="#{% if url %}{{ url }}{% endif %}/?page={{ imoveis.next_page_number }}">Próxima página</a></li>
+				{% endif %}
+			</ul>
+		</div>
+		<!-- /.paginator -->
 
 	<div id="content-imoveis">
 		{% for option in imoveis %}

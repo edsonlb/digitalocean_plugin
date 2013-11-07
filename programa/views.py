@@ -37,15 +37,17 @@ def links(request):
 	consulta = {} #CRIEI UM ARRAY COM OS PARÂMETROS
 	imovelvalor = False
 	ordem_por = False
+	empresaid = False
 	pesquisa = ""
 	url = ''
 	finalidade_busca = ''
+
 
 	for dado in parametros:
 
 		if dado.find('www.') >= 0:
 			empresa = Empresa.objects.get(site=dado)
-			#	UNICA BUSCA NO BANCO!
+			empresaid = True
 			imoveis = Imovel.objects.filter(id_empresa=empresa.id_empresa)
 
 		if dado.find('ordenar-por-') >= 0:
@@ -103,13 +105,20 @@ def links(request):
 			imovelvalor = True
 			pesquisa += " >> " + valorimovel
 
-	tipo_temporada   = imoveis.filter(finalidade='TEMPORADA').values('tipo','finalidade').distinct().order_by('tipo')
-	tipo_aluguel     = imoveis.filter(finalidade='ALUGUEL').values('tipo','finalidade').distinct().order_by('tipo')
-	tipo_venda       = imoveis.filter(finalidade='VENDA').values('tipo','finalidade').distinct().order_by('tipo')
-	cidade           = imoveis.values('cidade').distinct().order_by('cidade')
-	bairro           = imoveis.values('bairro').distinct().order_by('bairro')
-	valor            = imoveis.values('valor').distinct().order_by('valor')
-	dormitorios      = imoveis.values('dormitorios').distinct().order_by('dormitorios')
+	if empresaid == True:
+		tipo_temporada   = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'TEMPORADA' group by tipo order by tipo")
+		tipo_aluguel     = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'ALUGUEL' group by tipo order by tipo")
+		tipo_venda       = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'VENDA' group by tipo order by tipo")
+		cidade           = Imovel.objects.raw("SELECT ID_IMOVEL, CIDADE FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by cidade order by cidade")
+		bairro           = Imovel.objects.raw("SELECT ID_IMOVEL, bairro FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by bairro order by bairro")
+		#valor            = imoveis.values('valor').distinct().order_by('valor')
+		dormitorios      = Imovel.objects.raw("SELECT ID_IMOVEL, dormitorios FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by dormitorios order by dormitorios")
+	else:
+		return render_to_response('error.html', {
+				'msg': """ERRO: Siga o exemplo abaixo para formatar a sua URL: 
+				http://imoveisemfranca.com.br/www.imoveisemfranca.com.br
+				/pesquisa
+				/contato"""})
 
 	if imovelvalor == True:
 		if valorimovel == 'ate-50-mil':
@@ -128,36 +137,11 @@ def links(request):
 			imoveis = imoveis.filter(valor__gte=500000.00)
 
 	if ordem_por == True:
-		if por_ordem == 'finalidadebusca':
-			imoveis = imoveis.filter(**consulta).order_by('finalidade')
-
-		elif por_ordem == 'tipobusca':
-			imoveis = imoveis.filter(**consulta).order_by('tipo')
-		
-		elif por_ordem == 'cidadebusca':
-			imoveis = imoveis.filter(**consulta).order_by('cidade')
-		
-		elif por_ordem == 'bairrobusca':
-			imoveis = imoveis.filter(**consulta).order_by('bairro')
-
-		elif por_ordem == 'quartosmenos':
-			imoveis = imoveis.filter(**consulta).order_by('dormitorios')
-
-		elif por_ordem == 'quartosmais':
-			imoveis = imoveis.filter(**consulta).order_by('-dormitorios')
-		
-		elif por_ordem == 'valormaior':
-			imoveis = imoveis.filter(**consulta).order_by('-valor')
-		
-		elif por_ordem == 'valormenor':
-			imoveis = imoveis.filter(**consulta).order_by('valor')
-		#paginator = Paginator(imoveis, 10)
+			imoveis = imoveis.filter(**consulta).order_by(por_ordem)
 	else:
 		imoveis = imoveis.filter(**consulta).order_by('-valor')
-		#paginator = Paginator(imoveis.filter(**consulta).order_by('-valor'), 10)
 
 	paginator = Paginator(imoveis, 10)
-
 	page = request.GET.get('page')
 	try:
 		imoveis = paginator.page(page)
@@ -168,6 +152,7 @@ def links(request):
 
 	num_pages = []
 	for p in range(paginator.num_pages):
+		print "oi"
 		num_pages.append(p+1)
     
 	return render_to_response('index.html', {
@@ -180,7 +165,7 @@ def links(request):
 		'tipo_venda': tipo_venda,
 		'cidade': cidade,
 		'bairro': bairro,
-		'valor': valor,
+		#'valor': valor,
 		'pesquisa':pesquisa,
 		'url': url,
 		'finalidade_busca': finalidade_busca
