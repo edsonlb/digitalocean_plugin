@@ -163,11 +163,11 @@ class Imovel(models.Model):
 
         return string foto
     """
-    def photo(self):
-        foto = Fotos.objects.filter(id_imovel=self.id_imovel, id_empresa=self.id_empresa.id_empresa, fachada=1, foto__contains='_1.')[:1]
-        for f in foto:
-            foto = f.foto
-        return foto
+    #def photo(self):
+    #    foto = Fotos.objects.filter(id_imovel=self.id_imovel, id_empresa=self.id_empresa.id_empresa, fachada=1, foto__contains='_1.')[:1]
+    #    for f in foto:
+    #        foto = f.foto
+    #    return foto
 
     def fotos(self):
         fotos = Fotos.objects.filter(id_empresa=self.id_empresa, id_imovel=self.id_imovel) #retirei: fachada=1
