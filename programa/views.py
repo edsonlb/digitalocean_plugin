@@ -152,12 +152,44 @@ def links(request):
 
 	num_pages = []
 	for p in range(paginator.num_pages):
-		print "oi"
+		
 		num_pages.append(p+1)
-    
+
+
+	paginacao_dir = []
+	paginacao_esq = []
+	quant_pages = 0
+
+	quant_pages = num_pages.__len__()
+
+	print imoveis.number
+
+	if imoveis.number == 0 :
+		for x in range(1,10):
+			paginacao_esq.append(x)
+
+	if imoveis.number == 1 :
+		for x in range(1,10):
+			paginacao_dir.append(x)
+
+	elif imoveis.number == 2:
+		for x in range(1,10):
+			paginacao_dir.append(x)
+
+	elif imoveis.number > 2 and imoveis.number <= quant_pages:
+		for x in range(imoveis.number,imoveis.number+4,1):
+			paginacao_dir.append(x)
+
+	if imoveis.number > 2 and imoveis.number <= quant_pages:
+		for x in range(imoveis.number,imoveis.number-4,-1):
+			paginacao_esq.append(x)
+
 	return render_to_response('index.html', {
 		'imoveis':imoveis,
+		'paginacao_dir':paginacao_dir,
+		'paginacao_esq':paginacao_esq[::-1],
         'num_pages': num_pages,
+        'quant_pages':quant_pages,
 		'empresa':empresa,
 		'dormitorios': dormitorios,
 		'tipo_temporada': tipo_temporada,
