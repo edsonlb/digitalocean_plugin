@@ -106,13 +106,13 @@ def links(request):
 			pesquisa += " >> " + valorimovel
 
 	if empresaid == True:
-		tipo_temporada   = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'TEMPORADA' group by tipo order by tipo")
-		tipo_aluguel     = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'ALUGUEL' group by tipo order by tipo")
-		tipo_venda       = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'VENDA' group by tipo order by tipo")
-		cidade           = Imovel.objects.raw("SELECT ID_IMOVEL, CIDADE FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by cidade order by cidade")
-		bairro           = Imovel.objects.raw("SELECT ID_IMOVEL, bairro FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by bairro order by bairro")
+		tipo_temporada   = Imovel.objects.raw("SELECT ID_IMOVEL, TIPO FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' and FINALIDADE = 'TEMPORADA' group by TIPO order by TIPO")
+		tipo_aluguel     = Imovel.objects.raw("SELECT ID_IMOVEL, TIPO FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' and FINALIDADE = 'ALUGUEL' group by TIPO order by TIPO")
+		tipo_venda       = Imovel.objects.raw("SELECT ID_IMOVEL, TIPO FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' and FINALIDADE = 'VENDA' group by TIPO order by TIPO")
+		cidade           = Imovel.objects.raw("SELECT ID_IMOVEL, CIDADE FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' group by CIDADE order by CIDADE")
+		bairro           = Imovel.objects.raw("SELECT ID_IMOVEL, BAIRRO FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' group by BAIRRO order by BAIRRO")
 		#valor            = imoveis.values('valor').distinct().order_by('valor')
-		dormitorios      = Imovel.objects.raw("SELECT ID_IMOVEL, dormitorios FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by dormitorios order by dormitorios")
+		dormitorios      = Imovel.objects.raw("SELECT ID_IMOVEL, DORMITORIOS FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' group by DORMITORIOS order by DORMITORIOS")
 	else:
 		return render_to_response('error.html', {
 				'msg': """ERRO: Siga o exemplo abaixo para formatar a sua URL: 
