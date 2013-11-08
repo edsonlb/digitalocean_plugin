@@ -219,35 +219,50 @@ def pesquisa(request):
 	
 	imoveis_relacionados =  Imovel.objects.filter(finalidade=imovel.finalidade, tipo=imovel.tipo, cidade=imovel.cidade).order_by('-valor')[:4]
 
+	email = False
 	if request.method == 'POST':
 		if request.POST['nome']:
 			nome = request.POST['nome']
+			email = True
 
 		if request.POST['telefone']:
 			telefone = request.POST['telefone'] 
+			email = True
 
 		if request.POST['emailUsuario']:
 			emailusuario = request.POST['emailUsuario']
+			email = True
 
 		if request.POST['mensagem']:
 			mensagem = request.POST['mensagem'] 
+			email = True
 
-		subject, from_email, to = '=> EMAIL DO SEU SITE', 'lucas@celuladigital.com.br', 'lucas@celuladigital.com.br'
+		if email:
+			subject, from_email, to = '=> EMAIL DO SEU SITE', 'lucas@celuladigital.com.br', 'lucas@celuladigital.com.br'
+			imovel = request.get_full_path()
+			html_content = render_to_string('sendmail.html', {'nome':nome,
+													  'telefone': telefone,
+													  'email':emailusuario,
+													  'imovel':imovel,
+													  'empresa':empresa,
+													  'mensagem': mensagem})
+			text_content = strip_tags(html_content)
+			msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+			msg.attach_alternative(html_content, "text/html")
+			msg.send()
+			return render_to_response('imovel.html', {
+									'imovel': imovel,
+									'imoveis_relacionados':imoveis_relacionados,
+									'empresa':empresa})
 
-		html_content = render_to_string('sendmail.html', {'nome':nome,
-		  'telefone': telefone,
-		  'email':emailusuario,
-		  'imoveis':imoveis,
-		  'empresa':empresa,
-		  'mensagem': mensagem})
-
-		text_content = strip_tags(html_content)
-		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-		msg.attach_alternative(html_content, "text/html")
-		msg.send()
+		else:
+			return render_to_response('imovel.html', {
+									'imovel': imovel,
+									'imoveis_relacionados':imoveis_relacionados,
+									'empresa':empresa})
 
 	return render_to_response('imovel.html', {
-		'imovel': imovel,
-		'imoveis_relacionados':imoveis_relacionados,
-		'empresa':empresa
+						'imovel': imovel,
+						'imoveis_relacionados':imoveis_relacionados,
+						'empresa':empresa
 	})
