@@ -105,8 +105,8 @@ def links(request):
 			pesquisa += " >> " + valorimovel
 
 		if dado.find('page-') >= 0:
-			url += '/' + dado
-			pagina = dado.replace('page-', '')
+			pagina = int(dado.replace('page-', ''))
+			url += '/page-' + str(pagina+1)
 		else:
 			pagina = 1
 
@@ -195,11 +195,7 @@ def links(request):
 		for x in range(1,10):
 			paginacao_esq.append(x)
 
-	if imoveis.number == 1 :
-		for x in range(1,10):
-			paginacao_dir.append(x)
-
-	elif imoveis.number == 2:
+	if imoveis.number <= 2 :
 		for x in range(1,10):
 			paginacao_dir.append(x)
 
