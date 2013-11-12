@@ -141,10 +141,10 @@
 
 						{% for x in paginacao_esq  %}
 							{% if imoveis.number == x %}
-								<b><a href="#{% if url %}{{ url }}{% endif %}/?page={{ x }}"> <h3>{{ x }}</h3></b></a>
+								<b><a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}"> <h3>{{ x }}</h3></b></a>
 							{% elif x == 0 %}
 							{% else %}
-								<a href="#{% if url %}{{ url }}{% endif %}/?page={{ x }}">{{ x }}</a>
+								<a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}">{{ x }}</a>
 							{% endif %}
 						{% endfor %}
 
@@ -153,13 +153,13 @@
 							{% else %}
 								{% if x <= quant_pages %}
 
-									<a href="#{% if url %}{{ url }}{% endif %}/?page={{ x }}">{{ x }}</a>
+									<a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}">{{ x }}</a>
 								{% endif %}
 							{% endif %}
 						{% endfor %}{% if x <= quant_pages %} ... {{ quant_pages }} {% endif %}
 					
 					{% if imoveis.has_next %}
-						<li><a href="#{% if url %}{{ url }}{% endif %}/?page={{ imoveis.next_page_number }}">Próxima página</a></li>
+						<li><a href="#{% if url %}{{ url }}{% endif %}/page-{{ imoveis.next_page_number }}">Próxima página</a></li>
 					{% endif %}
 			</ul>
 		</div>

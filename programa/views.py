@@ -104,6 +104,13 @@ def links(request):
 			imovelvalor = True
 			pesquisa += " >> " + valorimovel
 
+		if dado.find('page-') >= 0:
+			url += '/' + dado
+			pagina = dado.replace('page-', '')
+		else:
+			pagina = 1
+
+
 	if empresaid == True:
 		tipo_temporada   = Imovel.objects.raw("SELECT ID_IMOVEL, TIPO FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' and FINALIDADE = 'TEMPORADA' group by TIPO order by TIPO")
 		tipo_aluguel     = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'ALUGUEL' group by tipo order by tipo")
@@ -166,9 +173,9 @@ def links(request):
 
 	# ///////////////// PAGINAÇÃO //////////////
 	paginator = Paginator(imoveis, 10)
-	page = request.GET.get('page')
+
 	try:
-		imoveis = paginator.page(page)
+		imoveis = paginator.page(pagina)
 	except PageNotAnInteger:
 		imoveis = paginator.page(1)
 	except EmptyPage:
@@ -176,9 +183,7 @@ def links(request):
 
 	num_pages = []
 	for p in range(paginator.num_pages):
-		
 		num_pages.append(p+1)
-
 
 	paginacao_dir = []
 	paginacao_esq = []
@@ -207,22 +212,6 @@ def links(request):
 			paginacao_esq.append(x)
 
 	# //////////////////// FIM DA PAGINAÇÃO /////////////
-
-
-	if len(list(tipo_temporada)) == 0:
-		tipo_temporada = False
-
-	page = request.GET.get('page')
-	try:
-		imoveis = paginator.page(page)
-	except PageNotAnInteger:
-		imoveis = paginator.page(1)
-	except EmptyPage:
-		imoveis = paginator.page(paginator.num_pages)
-
-	num_pages = []
-	for p in range(paginator.num_pages):
-		num_pages.append(p+1)
 	
 	return render_to_response('index.html', {
 		'imoveis':imoveis,
