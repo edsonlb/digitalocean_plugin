@@ -41,13 +41,13 @@ def links(request):
 	pesquisa = ""
 	url = ''
 	finalidade_busca = ''
+	pagina = 1
 
 	for dado in parametros:
-
 		if dado.find('www.') >= 0:
 			empresa = Empresa.objects.get(site=dado)
 			empresaid = True
-			imoveis = Imovel.objects.filter(id_empresa=empresa.id_empresa)
+			consulta['id_empresa'] = empresa.id_empresa
 
 		if dado.find('ordenar-por-') >= 0:
 			ordem_por = True
@@ -106,18 +106,16 @@ def links(request):
 
 		if dado.find('page-') >= 0:
 			pagina = int(dado.replace('page-', ''))
-			url += '/page-' + str(pagina+1)
-		else:
-			pagina = 1
 
+	print url
+	print "url acima"
 
-	if empresaid == True:
+	if empresaid:
 		tipo_temporada   = Imovel.objects.raw("SELECT ID_IMOVEL, TIPO FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' and FINALIDADE = 'TEMPORADA' group by TIPO order by TIPO")
 		tipo_aluguel     = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'ALUGUEL' group by tipo order by tipo")
 		tipo_venda       = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'VENDA' group by tipo order by tipo")
 		cidade           = Imovel.objects.raw("SELECT ID_IMOVEL, CIDADE FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by cidade order by cidade")
 		bairro           = Imovel.objects.raw("SELECT ID_IMOVEL, BAIRRO FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by bairro order by bairro")
-		#valor            = imoveis.values('valor').distinct().order_by('valor')
 		dormitorios      = Imovel.objects.raw("SELECT ID_IMOVEL, dormitorios FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by dormitorios order by dormitorios")
 	# else:
 	# 	return render_to_response('error.html', {
@@ -126,60 +124,64 @@ def links(request):
 	# 			/pesquisa
 	# 			/contato"""})
 
-	if imovelvalor == True:
+	if imovelvalor:
 		if valorimovel == 'ate-50-mil':
-			imoveis = imoveis.filter(valor__lte=50000.00)
+			consulta['valor__lte'] = 50000.00
 
 		elif valorimovel == '50-mil-100-mil':
-			imoveis = imoveis.filter(valor__gt=50000.00,  valor__lte=100000.00)
+			consulta['valor__gt'] = 50000.00
+			consulta['valor__lte'] = 100000.00
 
 		elif valorimovel == '100-mil-300-mil':
-			imoveis = imoveis.filter(valor__gt=100000.00,  valor__lte=300000.00)
+			consulta['valor__gt'] = 100000.00
+			consulta['valor__lte'] = 300000.00
 
 		elif valorimovel == '300-mil-500-mil':
-			imoveis = imoveis.filter(valor__gt=300000.00,  valor__lte=500000.00)
+			consulta['valor__gt'] = 300000.00
+			consulta['valor__lte'] = 500000.00
 		
 		elif valorimovel == 'mais-de-500-mil':
-			imoveis = imoveis.filter(valor__gte=500000.00)
+			consulta['valor__gte'] = 500000.00
 
-	if ordem_por == True:
+	if ordem_por: #ISSO AQUI PODE MUDAR, E MUITO. DEIXA VINDO DIRETO DO TEMPLATE O VALOR - EDSON
 		if por_ordem == 'finalidadebusca':
-			imoveis = imoveis.filter(**consulta).order_by('finalidade')
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('finalidade')
 
 		elif por_ordem == 'tipobusca':
-			imoveis = imoveis.filter(**consulta).order_by('tipo')
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('tipo')
 		
 		elif por_ordem == 'cidadebusca':
-			imoveis = imoveis.filter(**consulta).order_by('cidade')
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('cidade')
 		
 		elif por_ordem == 'bairrobusca':
-			imoveis = imoveis.filter(**consulta).order_by('bairro')
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('bairro')
 
 		elif por_ordem == 'quartosmenos':
-			imoveis = imoveis.filter(**consulta).order_by('-dormitorios')
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('-dormitorios')
 
 		elif por_ordem == 'quartosmais':
-			imoveis = imoveis.filter(**consulta).order_by('dormitorios')
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('dormitorios')
 		
 		elif por_ordem == 'valormaior':
-			imoveis = imoveis.filter(**consulta).order_by('-valor')
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('-valor')
 		
 		elif por_ordem == 'valormenor':
-			imoveis = imoveis.filter(**consulta).order_by('valor')
-		#paginator = Paginator(imoveis, 10)
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('valor')
 	else:
-		imoveis = imoveis.filter(**consulta).order_by('-valor')
-		#paginator = Paginator(imoveis.filter(**consulta).order_by('-valor'), 10)
+		imoveisBanco = Imovel.objects.filter(**consulta).order_by('-valor')
 
 	# ///////////////// PAGINAÇÃO //////////////
-	paginator = Paginator(imoveis, 10)
+
+	paginator = Paginator(imoveisBanco, 10)
 
 	try:
 		imoveis = paginator.page(pagina)
 	except PageNotAnInteger:
 		imoveis = paginator.page(1)
+		pagina = 1
 	except EmptyPage:
 		imoveis = paginator.page(paginator.num_pages)
+		pagina = paginator.num_pages
 
 	num_pages = []
 	for p in range(paginator.num_pages):
@@ -189,23 +191,25 @@ def links(request):
 	paginacao_esq = []
 	quant_pages = 0
 
-	quant_pages = num_pages.__len__()
+	# quant_pages = num_pages.__len__()
+	#quant_pages = paginator.num_pages
 
-	if imoveis.number == 0 :
+	if pagina == 0 :
 		for x in range(1,10):
 			paginacao_esq.append(x)
 
-	if imoveis.number <= 2 :
+	if pagina <= 2 :
 		for x in range(1,10):
 			paginacao_dir.append(x)
 
-	elif imoveis.number > 2 and imoveis.number <= quant_pages:
+	elif pagina > 2 and pagina <= imoveis.paginator.num_pages:
 		for x in range(imoveis.number,imoveis.number+4,1):
 			paginacao_dir.append(x)
 
-	if imoveis.number > 2 and imoveis.number <= quant_pages:
+	if pagina > 2 and pagina <= imoveis.paginator.num_pages:
 		for x in range(imoveis.number,imoveis.number-4,-1):
 			paginacao_esq.append(x)
+
 
 	# //////////////////// FIM DA PAGINAÇÃO /////////////
 	
@@ -214,7 +218,7 @@ def links(request):
 		'paginacao_dir':paginacao_dir,
 		'paginacao_esq':paginacao_esq[::-1],
 		'num_pages': num_pages,
-		'quant_pages':quant_pages,
+		'quant_pages':0,
 		'empresa':empresa,
 		'dormitorios': dormitorios,
 		'tipo_temporada': tipo_temporada,
@@ -226,7 +230,7 @@ def links(request):
 		'pesquisa':pesquisa,
 		'url': url,
 		'finalidade_busca': finalidade_busca
-		})
+		}, context_instance=RequestContext(request))
 
 
 @csrf_exempt

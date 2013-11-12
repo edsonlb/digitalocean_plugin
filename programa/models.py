@@ -158,6 +158,9 @@ class Imovel(models.Model):
     area_construida = models.FloatField(null=True, db_column='AREA_CONSTRUIDA', blank=True) # Field name made lowercase.
     anuncio = models.CharField(max_length=3L, db_column='ANUNCIO') # Field name made lowercase.
 
+    def __unicode__(self):
+        return unicode(self.id_imovel)
+
     """
         Método que retorna a foto da fachada
 

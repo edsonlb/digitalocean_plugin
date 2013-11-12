@@ -20,9 +20,9 @@ urlpatterns = patterns('',
     #url(r'^pesquisa/', 'programa.views.pesquisa'),
     url(r'^pesquisa/', 'programa.views.pesquisa'),
     url(r'^contato/$', 'views.contato'),
+    #url(r'^(?P<urlEnviada>\S+)/#/', 'programa.views.links'),
     url(r'^', 'programa.views.links'),
-    url(r'^media(.*)$', 'django.views.static.serve',
-        { 'document_root' : settings.MEDIA_ROOT }),
+    url(r'^media(.*)$', 'django.views.static.serve',{ 'document_root' : settings.MEDIA_ROOT }),
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 )

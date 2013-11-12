@@ -135,39 +135,36 @@
 	<!-- /.paginator -->
 	<div class="paginator">
 			<ul>
+			<li>
 				{% if imoveis.has_previous %}
-					<li><a href="#{% if url %}{{ url }}{% endif %}/?page={{ imoveis.previous_page_number }}/">Página Anterior</a></li>
+					<a href="#{% if url %}{{ url }}{% endif %}/page-{{ imoveis.previous_page_number }}"> Página Anterior &laquo; &nbsp;</a>
 				{% endif %}
 
 						{% for x in paginacao_esq  %}
 							{% if imoveis.number == x %}
-								<b><a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}/"> <h3>{{ x }}</h3></b></a>
-							{% elif x == 0 %}
+								<b><a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}"> &nbsp;<span style="font-size: 24px;">{{ x }}</span> &nbsp;</b></a>
+								{% elif x == 0 %}
 							{% else %}
-								<a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}/">{{ x }}</a>
+								<a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}"> {{ x }} </a>{% endif %}
+						{% endfor %}
+						{% for x in paginacao_dir %}
+							{% if imoveis.number != x %}
+							{% elif imoveis.number <= imoveis.paginator.num_pages %}
+									<a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}"> {{ x }} </a>
+								
 							{% endif %}
 						{% endfor %}
 
-						{% for x in paginacao_dir %}
-							PAGINACAO
-							{% if imoveis.number == x %}
-							{% else %}
-								{% if x <= quant_pages %}
-
-									<a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}/">{{ x }}</a>
-								{% endif %}
-							{% endif %}
-						{% endfor %}{% if x <= quant_pages %} ... {{ quant_pages }} {% endif %}
-					
-					{% if imoveis.has_next %}
-						<li><a href="#{% if url %}{{ url }}{% endif %}/page-{{ imoveis.next_page_number }}/">Próxima página</a></li>
-					{% endif %}
+						{% if imoveis.has_next %}
+							<a href="#{% if url %}{{ url }}{% endif %}/page-{{ imoveis.next_page_number }}"> &nbsp;&raquo; Próxima página </a>
+						{% endif %}
+					</li>
 			</ul>
 		</div>
 		<!-- /.paginator -->
 
 	<div id="content-imoveis">
-		{% for option in imoveis %}
+		{% for option in imoveis.object_list %}
 		<article id="imovel-{{option.id_imovel}}" class="box-imovel">
 			<div class="img-box">
 				
@@ -218,11 +215,11 @@
 		<div class="paginator">
 			<ul>
 				{% if imoveis.has_previous %}
-				<li><a href="#{% if url %}{{ url }}{% endif %}">Página Anterior</a></li>
+				<li><a href="#{% if url %}{{ url }}{% endif %}/page-{{ imoveis.previous_page_number }}">Página Anterior</a></li>
 				{% if imoveis.has_next %}|{% endif %}
 				{% endif %}
 				{% if imoveis.has_next %}
-				<li><a href="#{% if url %}{{ url }}{% endif %}">Próxima página</a></li>
+				<li><a href="#{% if url %}{{ url }}{% endif %}/page-{{ imoveis.next_page_number }}">Próxima página</a></li>
 				{% endif %}
 			</ul>
 		</div>
