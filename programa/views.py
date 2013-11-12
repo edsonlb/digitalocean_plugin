@@ -194,19 +194,19 @@ def links(request):
 	# quant_pages = num_pages.__len__()
 	#quant_pages = paginator.num_pages
 
-	if pagina == 0 :
+	if pagina == 1:
 		for x in range(1,10):
 			paginacao_esq.append(x)
 
-	if pagina <= 2 :
+	if pagina <= 2:
 		for x in range(1,10):
 			paginacao_dir.append(x)
 
-	elif pagina > 2 and pagina <= imoveis.paginator.num_pages:
+	elif pagina > 2:
 		for x in range(imoveis.number,imoveis.number+4,1):
 			paginacao_dir.append(x)
 
-	if pagina > 2 and pagina <= imoveis.paginator.num_pages:
+	if pagina > 2:
 		for x in range(imoveis.number,imoveis.number-4,-1):
 			paginacao_esq.append(x)
 

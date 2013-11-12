@@ -149,9 +149,10 @@
 						{% endfor %}
 						{% for x in paginacao_dir %}
 							{% if imoveis.number != x %}
-							{% elif imoveis.number <= imoveis.paginator.num_pages %}
+								{% if imoveis.number < imoveis.paginator.num_pages %}
 									<a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}"> {{ x }} </a>
-								
+							
+								{% endif %}	
 							{% endif %}
 						{% endfor %}
 
