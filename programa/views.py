@@ -42,7 +42,6 @@ def links(request):
 	url = ''
 	finalidade_busca = ''
 
-
 	for dado in parametros:
 
 		if dado.find('www.') >= 0:
@@ -107,18 +106,18 @@ def links(request):
 
 	if empresaid == True:
 		tipo_temporada   = Imovel.objects.raw("SELECT ID_IMOVEL, TIPO FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' and FINALIDADE = 'TEMPORADA' group by TIPO order by TIPO")
-		tipo_aluguel     = Imovel.objects.raw("SELECT ID_IMOVEL, TIPO FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' and FINALIDADE = 'ALUGUEL' group by TIPO order by TIPO")
-		tipo_venda       = Imovel.objects.raw("SELECT ID_IMOVEL, TIPO FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' and FINALIDADE = 'VENDA' group by TIPO order by TIPO")
-		cidade           = Imovel.objects.raw("SELECT ID_IMOVEL, CIDADE FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' group by CIDADE order by CIDADE")
-		bairro           = Imovel.objects.raw("SELECT ID_IMOVEL, BAIRRO FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' group by BAIRRO order by BAIRRO")
+		tipo_aluguel     = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'ALUGUEL' group by tipo order by tipo")
+		tipo_venda       = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'VENDA' group by tipo order by tipo")
+		cidade           = Imovel.objects.raw("SELECT ID_IMOVEL, CIDADE FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by cidade order by cidade")
+		bairro           = Imovel.objects.raw("SELECT ID_IMOVEL, BAIRRO FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by bairro order by bairro")
 		#valor            = imoveis.values('valor').distinct().order_by('valor')
-		dormitorios      = Imovel.objects.raw("SELECT ID_IMOVEL, DORMITORIOS FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' group by DORMITORIOS order by DORMITORIOS")
-	else:
-		return render_to_response('error.html', {
-				'msg': """ERRO: Siga o exemplo abaixo para formatar a sua URL: 
-				http://imoveisemfranca.com.br/www.imoveisemfranca.com.br
-				/pesquisa
-				/contato"""})
+		dormitorios      = Imovel.objects.raw("SELECT ID_IMOVEL, dormitorios FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by dormitorios order by dormitorios")
+	# else:
+	# 	return render_to_response('error.html', {
+	# 			'msg': """ERRO: Siga o exemplo abaixo para formatar a sua URL: 
+	# 			http://imoveisemfranca.com.br/www.imoveisemfranca.com.br
+	# 			/pesquisa
+	# 			/contato"""})
 
 	if imovelvalor == True:
 		if valorimovel == 'ate-50-mil':
@@ -137,10 +136,35 @@ def links(request):
 			imoveis = imoveis.filter(valor__gte=500000.00)
 
 	if ordem_por == True:
-			imoveis = imoveis.filter(**consulta).order_by(por_ordem)
+		if por_ordem == 'finalidadebusca':
+			imoveis = imoveis.filter(**consulta).order_by('finalidade')
+
+		elif por_ordem == 'tipobusca':
+			imoveis = imoveis.filter(**consulta).order_by('tipo')
+		
+		elif por_ordem == 'cidadebusca':
+			imoveis = imoveis.filter(**consulta).order_by('cidade')
+		
+		elif por_ordem == 'bairrobusca':
+			imoveis = imoveis.filter(**consulta).order_by('bairro')
+
+		elif por_ordem == 'quartosmenos':
+			imoveis = imoveis.filter(**consulta).order_by('-dormitorios')
+
+		elif por_ordem == 'quartosmais':
+			imoveis = imoveis.filter(**consulta).order_by('dormitorios')
+		
+		elif por_ordem == 'valormaior':
+			imoveis = imoveis.filter(**consulta).order_by('-valor')
+		
+		elif por_ordem == 'valormenor':
+			imoveis = imoveis.filter(**consulta).order_by('valor')
+		#paginator = Paginator(imoveis, 10)
 	else:
 		imoveis = imoveis.filter(**consulta).order_by('-valor')
+		#paginator = Paginator(imoveis.filter(**consulta).order_by('-valor'), 10)
 
+	# ///////////////// PAGINAÇÃO //////////////
 	paginator = Paginator(imoveis, 10)
 	page = request.GET.get('page')
 	try:
@@ -162,8 +186,6 @@ def links(request):
 
 	quant_pages = num_pages.__len__()
 
-	print imoveis.number
-
 	if imoveis.number == 0 :
 		for x in range(1,10):
 			paginacao_esq.append(x)
@@ -184,12 +206,30 @@ def links(request):
 		for x in range(imoveis.number,imoveis.number-4,-1):
 			paginacao_esq.append(x)
 
+	# //////////////////// FIM DA PAGINAÇÃO /////////////
+
+
+	if len(list(tipo_temporada)) == 0:
+		tipo_temporada = False
+
+	page = request.GET.get('page')
+	try:
+		imoveis = paginator.page(page)
+	except PageNotAnInteger:
+		imoveis = paginator.page(1)
+	except EmptyPage:
+		imoveis = paginator.page(paginator.num_pages)
+
+	num_pages = []
+	for p in range(paginator.num_pages):
+		num_pages.append(p+1)
+	
 	return render_to_response('index.html', {
 		'imoveis':imoveis,
 		'paginacao_dir':paginacao_dir,
 		'paginacao_esq':paginacao_esq[::-1],
-        'num_pages': num_pages,
-        'quant_pages':quant_pages,
+		'num_pages': num_pages,
+		'quant_pages':quant_pages,
 		'empresa':empresa,
 		'dormitorios': dormitorios,
 		'tipo_temporada': tipo_temporada,
@@ -219,50 +259,35 @@ def pesquisa(request):
 	
 	imoveis_relacionados =  Imovel.objects.filter(finalidade=imovel.finalidade, tipo=imovel.tipo, cidade=imovel.cidade).order_by('-valor')[:4]
 
-	email = False
 	if request.method == 'POST':
 		if request.POST['nome']:
 			nome = request.POST['nome']
-			email = True
 
 		if request.POST['telefone']:
 			telefone = request.POST['telefone'] 
-			email = True
 
 		if request.POST['emailUsuario']:
 			emailusuario = request.POST['emailUsuario']
-			email = True
 
 		if request.POST['mensagem']:
 			mensagem = request.POST['mensagem'] 
-			email = True
 
-		if email:
-			subject, from_email, to = '=> EMAIL DO SEU SITE', 'lucas@celuladigital.com.br', 'lucas@celuladigital.com.br'
-			imovel = request.get_full_path()
-			html_content = render_to_string('sendmail.html', {'nome':nome,
-													  'telefone': telefone,
-													  'email':emailusuario,
-													  'imovel':imovel,
-													  'empresa':empresa,
-													  'mensagem': mensagem})
-			text_content = strip_tags(html_content)
-			msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-			msg.attach_alternative(html_content, "text/html")
-			msg.send()
-			return render_to_response('imovel.html', {
-									'imovel': imovel,
-									'imoveis_relacionados':imoveis_relacionados,
-									'empresa':empresa})
+		subject, from_email, to = '=> EMAIL DO SEU SITE', 'lucas@celuladigital.com.br', 'lucas@celuladigital.com.br'
 
-		else:
-			return render_to_response('imovel.html', {
-									'imovel': imovel,
-									'imoveis_relacionados':imoveis_relacionados,
-									'empresa':empresa})
+		html_content = render_to_string('sendmail.html', {'nome':nome,
+		  'telefone': telefone,
+		  'email':emailusuario,
+		  'imoveis':imoveis,
+		  'empresa':empresa,
+		  'mensagem': mensagem})
+
+		text_content = strip_tags(html_content)
+		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+		msg.attach_alternative(html_content, "text/html")
+		msg.send()
 
 	return render_to_response('imovel.html', {
-						'imovel': imovel,
-						'imoveis_relacionados':imoveis_relacionados,
-						'empresa':empresa
+		'imovel': imovel,
+		'imoveis_relacionados':imoveis_relacionados,
+		'empresa':empresa
 	})

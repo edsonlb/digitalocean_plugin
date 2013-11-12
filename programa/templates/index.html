@@ -29,14 +29,14 @@
 				<select name="CIDADE" id="CIDADE" >
 					<option value="CIDADE">Cidade</option>
 					{% for opcao in cidade %}
-					<option  value="{{opcao.cidade}}">{{opcao.cidade}}</option>
+					<option  value="{{opcao.cidade|slugify}}">{{opcao.cidade}}</option>
 					{% endfor %}
 				</select>
 
 				<select name="BAIRRO" id="BAIRRO">
 					<option value="BAIRRO">Bairro</option>
 					{% for opcao in bairro %}
-					<option  value="{{opcao.bairro}}">{{opcao.bairro}}</option>
+					<option  value="{{opcao.bairro|slugify }}">{{opcao.bairro}}</option>
 					{% endfor %}
 				</select>
 
@@ -57,7 +57,6 @@
 				</select>
 
 				<input type="text" name="CODIGO" id="CODIGO" placeholder="Código" style="margin-bottom: 8px !important;width: 280px !important;">
-
 				<!--
 				<input type="text" name="TEXTO" id="TEXTO" placeholder="Texto" style="margin-bottom: 8px !important;width: 280px !important;">
 				-->
@@ -89,7 +88,7 @@
 			</ul>
 		</article>
 		{% endif %}
-
+{{ tipo_venda|length }}
 		{% if tipo_venda %}
 		<article class="box">
 			<h3><strong>Imóveis para venda</strong></h3>
@@ -186,7 +185,7 @@
 					<a title="Buscar por {{option.cidade|lower}}" href="http://{{empresa.site}}/busca-de-imoveis/#/tipo-{{option.tipo|lower}}/finalidade-{{option.finalidade|lower}}/cidade-{{option.cidade|slugify}}/">{{option.cidade}}</a>
 				</span>
 				<span  class="flag-bairro">
-					<a title="Buscar por {{option.bairro|lower}}" href="http://{{empresa.site}}/busca-de-imoveis/#/tipo-{{option.tipo|lower}}/finalidade-{{option.finalidade|lower}}/bairro-{{option.bairro|slugify}}/">{{option.bairro}}</a>
+					<a title="Buscar por {{option.bairro|lower}}" href="http://{{empresa.site}}/busca-de-imoveis/#/tipo-{{option.tipo|lower}}/finalidade-{{option.finalidade|lower }}/bairro-{{option.bairro|slugify}}/">{{option.bairro}}</a>
 				</span>
 				<span  class="flag-finalidade">
 					<a title="Buscar por {{option.tipo|lower}}" href="http://{{empresa.site}}/busca-de-imoveis/#/tipo-{{option.tipo|lower}}/finalidade-{{option.finalidade|lower}}/cidade-{{option.cidade|slugify}}/">{{option.tipo}}</a>
