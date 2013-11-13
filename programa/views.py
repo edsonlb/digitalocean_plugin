@@ -107,9 +107,6 @@ def links(request):
 		if dado.find('page-') >= 0:
 			pagina = int(dado.replace('page-', ''))
 
-	print url
-	print "url acima"
-
 	if empresaid:
 		tipo_temporada   = Imovel.objects.raw("SELECT ID_IMOVEL, TIPO FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' and FINALIDADE = 'TEMPORADA' group by TIPO order by TIPO")
 		tipo_aluguel     = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'ALUGUEL' group by tipo order by tipo")
