@@ -38,8 +38,6 @@ def links(request):
 	imovelvalor = False
 	ordem_por = False
 	empresaid = False
-
-
 	pesquisa = ""
 	url = ''
 	finalidade_busca = ''
@@ -55,8 +53,6 @@ def links(request):
 			ordem_por = True
 			url += '/' + dado
 			por_ordem = dado.replace('ordenar-por-', '')
-			print por_ordem
-			print 'por_ordem'
 			pesquisa += " >> " + por_ordem
 
 		if dado.find('cidade-') >= 0:
@@ -111,6 +107,9 @@ def links(request):
 		if dado.find('page-') >= 0:
 			pagina = int(dado.replace('page-', ''))
 
+	print url
+	print "url acima"
+
 	if empresaid:
 		tipo_temporada   = Imovel.objects.raw("SELECT ID_IMOVEL, TIPO FROM imovel where ID_IMOVEL = "+str(empresa.id_empresa)+" and ANUNCIO = 'SIM' and FINALIDADE = 'TEMPORADA' group by TIPO order by TIPO")
 		tipo_aluguel     = Imovel.objects.raw("SELECT ID_IMOVEL, tipo FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' and finalidade = 'ALUGUEL' group by tipo order by tipo")
@@ -143,12 +142,31 @@ def links(request):
 		
 		elif valorimovel == 'mais-de-500-mil':
 			consulta['valor__gte'] = 500000.00
-	
-	imoveisBanco = Imovel()
 
+	if ordem_por: #ISSO AQUI PODE MUDAR, E MUITO. DEIXA VINDO DIRETO DO TEMPLATE O VALOR - EDSON
+		if por_ordem == 'finalidadebusca':
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('finalidade')
 
-	if ordem_por:
-			imoveisBanco = Imovel.objects.filter(**consulta).order_by(por_ordem)
+		elif por_ordem == 'tipobusca':
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('tipo')
+		
+		elif por_ordem == 'cidadebusca':
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('cidade')
+		
+		elif por_ordem == 'bairrobusca':
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('bairro')
+
+		elif por_ordem == 'quartosmenos':
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('-dormitorios')
+
+		elif por_ordem == 'quartosmais':
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('dormitorios')
+		
+		elif por_ordem == 'valormaior':
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('-valor')
+		
+		elif por_ordem == 'valormenor':
+			imoveisBanco = Imovel.objects.filter(**consulta).order_by('valor')
 	else:
 		imoveisBanco = Imovel.objects.filter(**consulta).order_by('-valor')
 
@@ -173,8 +191,11 @@ def links(request):
 	paginacao_esq = []
 	quant_pages = 0
 
+	# quant_pages = num_pages.__len__()
+	#quant_pages = paginator.num_pages
+
 	if pagina == 1:
-		for x in range(1,3):
+		for x in range(1,10):
 			paginacao_esq.append(x)
 
 	if pagina <= 2:
