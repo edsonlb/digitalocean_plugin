@@ -53,6 +53,8 @@ def links(request):
 			ordem_por = True
 			url += '/' + dado
 			por_ordem = dado.replace('ordenar-por-', '')
+			print por_ordem
+			print 'por_ordem'
 			pesquisa += " >> " + por_ordem
 
 		if dado.find('cidade-') >= 0:
@@ -140,29 +142,31 @@ def links(request):
 		elif valorimovel == 'mais-de-500-mil':
 			consulta['valor__gte'] = 500000.00
 
+	imoveisBanco = Imovel()
+	
 	if ordem_por: #ISSO AQUI PODE MUDAR, E MUITO. DEIXA VINDO DIRETO DO TEMPLATE O VALOR - EDSON
-		if por_ordem == 'finalidadebusca':
+		if por_ordem == 'finalidade':
 			imoveisBanco = Imovel.objects.filter(**consulta).order_by('finalidade')
 
-		elif por_ordem == 'tipobusca':
+		elif por_ordem == 'tipo':
 			imoveisBanco = Imovel.objects.filter(**consulta).order_by('tipo')
 		
-		elif por_ordem == 'cidadebusca':
+		elif por_ordem == 'cidade':
 			imoveisBanco = Imovel.objects.filter(**consulta).order_by('cidade')
 		
-		elif por_ordem == 'bairrobusca':
+		elif por_ordem == 'bairro':
 			imoveisBanco = Imovel.objects.filter(**consulta).order_by('bairro')
 
-		elif por_ordem == 'quartosmenos':
+		elif por_ordem == '-dormitorios':
 			imoveisBanco = Imovel.objects.filter(**consulta).order_by('-dormitorios')
 
-		elif por_ordem == 'quartosmais':
+		elif por_ordem == 'dormitorios':
 			imoveisBanco = Imovel.objects.filter(**consulta).order_by('dormitorios')
 		
-		elif por_ordem == 'valormaior':
+		elif por_ordem == '-valor':
 			imoveisBanco = Imovel.objects.filter(**consulta).order_by('-valor')
 		
-		elif por_ordem == 'valormenor':
+		elif por_ordem == 'valor':
 			imoveisBanco = Imovel.objects.filter(**consulta).order_by('valor')
 	else:
 		imoveisBanco = Imovel.objects.filter(**consulta).order_by('-valor')
