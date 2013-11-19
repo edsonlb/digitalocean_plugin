@@ -39,12 +39,16 @@ def links(request):
 	ordem_por = False
 	empresaid = False
 
-
 	pesquisa = ""
 	url = ''
 	finalidade_busca = ''
 	pagina = 1
 
+	num_pages = []
+	paginacao_dir = []
+	paginacao_esq = []
+	quant_pages = 0
+	
 	for dado in parametros:
 		if dado.find('www.') >= 0:
 			empresa = Empresa.objects.get(site=dado)
@@ -55,8 +59,6 @@ def links(request):
 			ordem_por = True
 			url += '/' + dado
 			por_ordem = dado.replace('ordenar-por-', '')
-			print por_ordem
-			print 'por_ordem'
 			pesquisa += " >> " + por_ordem
 
 		if dado.find('cidade-') >= 0:
@@ -119,11 +121,13 @@ def links(request):
 		bairro           = Imovel.objects.raw("SELECT ID_IMOVEL, BAIRRO FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by bairro order by bairro")
 		dormitorios      = Imovel.objects.raw("SELECT ID_IMOVEL, dormitorios FROM imovel where id_empresa = "+str(empresa.id_empresa)+" and anuncio = 'SIM' group by dormitorios order by dormitorios")
 	# else:
-	# 	return render_to_response('error.html', {
-	# 			'msg': """ERRO: Siga o exemplo abaixo para formatar a sua URL: 
-	# 			http://imoveisemfranca.com.br/www.imoveisemfranca.com.br
-	# 			/pesquisa
-	# 			/contato"""})
+	#   return render_to_response('error.html', {
+	#           'msg': """ERRO: Siga o exemplo abaixo para formatar a sua URL: 
+	#           http://imoveisemfranca.com.br/www.imoveisemfranca.com.br
+	#           /pesquisa
+	#           /contato"""})
+	if len(list(tipo_temporada)) == 0:
+		tipo_temporada = False
 
 	if imovelvalor:
 		if valorimovel == 'ate-50-mil':
@@ -143,12 +147,9 @@ def links(request):
 		
 		elif valorimovel == 'mais-de-500-mil':
 			consulta['valor__gte'] = 500000.00
-	
-	imoveisBanco = Imovel()
-
 
 	if ordem_por:
-			imoveisBanco = Imovel.objects.filter(**consulta).order_by(por_ordem)
+		imoveisBanco = Imovel.objects.filter(**consulta).order_by(por_ordem)
 	else:
 		imoveisBanco = Imovel.objects.filter(**consulta).order_by('-valor')
 
@@ -165,20 +166,20 @@ def links(request):
 		imoveis = paginator.page(paginator.num_pages)
 		pagina = paginator.num_pages
 
-	num_pages = []
 	for p in range(paginator.num_pages):
 		num_pages.append(p+1)
 
-	paginacao_dir = []
-	paginacao_esq = []
-	quant_pages = 0
+	# quant_pages = num_pages.__len__()
+	#quant_pages = paginator.num_pages
 
 	if pagina == 1:
-		for x in range(1,3):
+		for x in range(1,2):
 			paginacao_esq.append(x)
-
+	if pagina == 2:
+		for x in range(1,3)[::-1]:
+			paginacao_esq.append(x)
 	if pagina <= 2:
-		for x in range(1,10):
+		for x in range(2,10):
 			paginacao_dir.append(x)
 
 	elif pagina > 2:

@@ -19,7 +19,7 @@
 			</fieldset>
 
 			<fieldset class="span4 clearfix">
-				{% if tipo_temporada %}
+				{% if tipo_temporada  %}
 				<label class="input-control radio"  onclick="" >
 					<input type="radio" value="TEMPORADA" name="FINALIDADE" >
 					<span class="helper">TEMPORADA</span>
@@ -157,7 +157,7 @@
 						{% endfor %}
 
 						{% if imoveis.has_next %}
-							<a href="#{% if url %}{{ url }}{% endif %}/page-{{ imoveis.next_page_number }}"> &nbsp;&raquo; Próxima página </a>
+							<a href="#{% if url %}{{ url }}{% endif %}/page-{{ imoveis.next_page_number }}" > &nbsp;&raquo; Próxima página </a>
 						{% endif %}
 					</li>
 			</ul>
