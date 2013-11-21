@@ -227,7 +227,7 @@ def pesquisa(request):
 				imovel = Imovel.objects.get(cod_imovel=id, id_empresa=empresa.id_empresa)
 	
 	# fotos = Fotos.objects.filter()
-	imoveis_relacionados =  Imovel.objects.filter(finalidade=imovel.finalidade, tipo=imovel.tipo, cidade=imovel.cidade, anuncio ="SIM" ).order_by('-valor')[:4]
+	imoveis_relacionados =  Imovel.objects.filter(finalidade=imovel.finalidade, tipo=imovel.tipo, cidade=imovel.cidade, anuncio ="SIM" ).order_by('-valor')[:2]
 	
 	# for imovel in imoveis_relacionados:
 	# 	fotos = Fotos.objects.filter(cod_imovel = imovel.cod_imovel, fachada=1)
