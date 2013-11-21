@@ -226,7 +226,16 @@ def pesquisa(request):
 				id = dado.replace('imovel-', '')
 				imovel = Imovel.objects.get(cod_imovel=id, id_empresa=empresa.id_empresa)
 	
-	imoveis_relacionados =  Imovel.objects.filter(finalidade=imovel.finalidade, tipo=imovel.tipo, cidade=imovel.cidade).order_by('-valor')[:4]
+	# fotos = Fotos.objects.filter()
+	imoveis_relacionados =  Imovel.objects.filter(finalidade=imovel.finalidade, tipo=imovel.tipo, cidade=imovel.cidade, anuncio ="SIM" ).order_by('-valor')[:10]
+	
+	# for imovel in imoveis_relacionados:
+	# 	fotos = Fotos.objects.filter(cod_imovel = imovel.cod_imovel, fachada=1)
+
+	# for foto in fotos:
+	# 	imoveis_relacionados += Imovel.objects.filter(cod_imovel=foto.cod_imovel)
+
+	# imoveis_relacionados = imoveis_relacionados[:4]
 
 	if request.method == 'POST':
 		if request.POST['nome']:
@@ -255,6 +264,8 @@ def pesquisa(request):
 		msg.attach_alternative(html_content, "text/html")
 		msg.send()
 
+	for x in imoveis_relacionados:
+		print x.cod_imovel
 	return render_to_response('imovel.html', {
 		'imovel': imovel,
 		'imoveis_relacionados':imoveis_relacionados,
