@@ -173,7 +173,7 @@ class Imovel(models.Model):
     #    return foto
 
     def fotos(self):
-        fotos = Fotos.objects.filter(id_empresa=self.id_empresa, id_imovel=self.id_imovel) #retirei: fachada=1
+        fotos = Fotos.objects.filter(id_empresa=self.id_empresa, id_imovel=self.id_imovel, fachada=1) #retirei: fachada=1
         return fotos
     
     class Meta:
