@@ -241,7 +241,7 @@ def pesquisa(request):
 		if request.POST['mensagem']:
 			mensagem = request.POST['mensagem'] 
 
-		subject, from_email, to = '=> EMAIL DO SEU SITE', 'lucas@celuladigital.com.br', 'lucas@celuladigital.com.br'
+		subject, from_email, to = '=> EMAIL DO SEU SITE', 'contato@c2imobiliaria.com.br', 'contato@c2imobiliaria.com.br'
 
 		html_content = render_to_string('sendmail.html', {'nome':nome,
 		  'telefone': telefone,
