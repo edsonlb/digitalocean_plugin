@@ -51,6 +51,7 @@ def links(request):
 	
 	for dado in parametros:
 		if dado.find('primefrancaimoveis') >= 0:
+			print 'asdasdasdsaasd >= 0'
 			empresa = Empresa.objects.get(site=dado)
 			empresaid = True
 			consulta['id_empresa'] = empresa.id_empresa
@@ -131,8 +132,7 @@ def links(request):
 	#           http://imoveisemfranca.com.br/www.imoveisemfranca.com.br
 	#           /pesquisa
 	#           /contato"""})
-	if len(list(tipo_temporada)) == 0:
-		tipo_temporada = False
+	
 
 	if imovelvalor:
 		if valorimovel == 'ate-50-mil':
@@ -268,6 +268,3 @@ def pesquisa(request):
 		'imoveis_relacionados':imoveis_relacionados,
 		'empresa':empresa
 	})
-
-def serve(request, path, document_root, show_indexes=False):
-	pass
