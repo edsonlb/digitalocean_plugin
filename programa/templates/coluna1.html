@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+	<ul>
+		<li> <a href=" "></li>
+
+	</ul>
+<!-- 	<div id="box-seach">
+
+	<div id="filter-links" class="box">
+		{% if tipo_aluguel %}
+		<article class="box">
+			<h3><strong>Imóveis para Locação</strong></h3>
+			<ul>
+				{% for opcao in tipo_aluguel%}
+				<li><a href="http://{{empresa.site}}/busca-de-imoveis/#/finalidade-{{opcao.finalidade|lower}}/tipo-{{opcao.tipo|lower}}/" class="linksPesquisa">{{opcao.tipo}}</a></li>
+				{% endfor %}
+			</ul>
+		</article>
+		{% endif %}
+{{ tipo_venda|length }}
+		{% if tipo_venda %}
+		<article class="box">
+			<h3><strong>Imóveis para venda</strong></h3>
+			<ul>
+				{% for opcao in tipo_venda %}
+				<li><a href="http://{{ empresa.site }}/busca-de-imoveis/#/finalidade-{{opcao.finalidade|lower}}/tipo-{{opcao.tipo|lower}}/" class="linksPesquisa">{{opcao.tipo}}</a></li>
+				{% endfor %}
+			</ul>
+		</article>
+		{% endif %}
+
+		{% if tipo_temporada %}
+		<article class="box">
+			<h3>Imóveis para temporada</h3>
+			<ul>
+				{% for opcao in tipo_temporada %}
+				<li><a href="http://{{ empresa.site }}/busca-de-imoveis/#/finalidade-{{opcao.finalidade|lower}}/tipo-{{opcao.tipo|lower}}/" class="linksPesquisa">{{opcao.tipo}}</a></li>
+				{% endfor %}
+			</ul>
+		</article>
+
+		{% endif %}
+	</div>
+	<!-- /.filter-links --> -->
+</body>
+</html>

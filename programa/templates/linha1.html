@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id="box-search-form"  class="box">
+		<form method="POST" name="escolha" action=".">
+			{% csrf_token %}
+
+			<fieldset class="span4 clearfix">
+				<label class="input-control radio"  onclick="" >
+					<input type="radio" value="ALUGUEL" name="FINALIDADE" {% if finalidade_busca == 'aluguel' %} checked {% endif %}>
+					<span class="helper">ALUGUEL</span>
+				</label>
+
+				<label class="input-control radio"  onclick="" >
+					<input type="radio" value="VENDA" name="FINALIDADE" {% if finalidade_busca == 'venda' %} checked {% endif %}>
+					<span class="helper">VENDA</span>
+				</label>
+			</fieldset>
+
+			<fieldset class="span4 clearfix">
+				{% if tipo_temporada  %}
+				<label class="input-control radio"  onclick="" >
+					<input type="radio" value="TEMPORADA" name="FINALIDADE" >
+					<span class="helper">TEMPORADA</span>
+				</label>
+				{% endif %}
+
+				<select name="CIDADE" id="CIDADE" >
+					<option value="CIDADE">Cidade</option>
+					{% for opcao in cidade %}
+					<option  value="{{opcao.cidade|slugify}}">{{opcao.cidade}}</option>
+					{% endfor %}
+				</select>
+
+				<select name="BAIRRO" id="BAIRRO">
+					<option value="BAIRRO">Bairro</option>
+					{% for opcao in bairro %}
+					<option  value="{{opcao.bairro|slugify }}">{{opcao.bairro}}</option>
+					{% endfor %}
+				</select>
+
+				<select name="DORMITORIOS" id="DORMITORIOS">
+					<option  value="DORMITORIO">Dormitório</option>
+					{% for opcao in dormitorios %}
+					<option  value="{{opcao.dormitorios}}">{{opcao.dormitorios}}</option>
+					{% endfor %}
+				</select>
+
+				<select name="VALOR" id="VALOR">
+					<option  value="VALOR">Valor</option>
+					<option  value="ate-50-mil">Até 50 mil</option>
+					<option  value="50-mil-100-mil">50 mil - 100 mil</option>
+					<option  value="100-mil-300-mil">100 mil - 300 mil</option>
+					<option  value="300-mil-500-mil">300 mil - 500 mil</option>
+					<option  value="mais-de-500-mil">mais de 500 mil</option>
+				</select>
+
+				<input type="text" name="CODIGO" id="CODIGO" placeholder="Código" style="margin-bottom: 8px !important;width: 280px !important;">
+				<!--
+				<input type="text" name="TEXTO" id="TEXTO" placeholder="Texto" style="margin-bottom: 8px !important;width: 280px !important;">
+				-->
+				<select name="ORDEM" id="ORDEM">
+					<option  value="-valor">ORDENAR PESQUISA POR</option>
+					<option  value="finalidade">FINALIDADE</option>
+					<option  value="tipo">TIPO</option>
+					<option  value="cidade">CIDADE</option>
+					<option  value="bairro">BAIRRO</option>
+					<option  value="dormitorios">QUARTOS MAIS</option>
+					<option  value="-dormitorios">QUARTOS MENOS</option>
+					<option  value="-valor">VALOR MAIOR</option>
+					<option  value="valor">VALOR MENOR</option>
+				</select>
+				<input type="submit" name="button" class="button" value="Pesquisar" style="width: auto !important; cursor: pointer !important;">
+			</fieldset>
+		</form>
+	</div>
+	<!-- /#seach-form -->
+</body>
+</html>

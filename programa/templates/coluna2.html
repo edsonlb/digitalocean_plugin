@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<!-- /.paginator -->
+	<div class="paginator">
+			<ul>
+			<li>
+				{% if imoveis.has_previous %}
+					<a href="#{% if url %}{{ url }}{% endif %}/page-{{ imoveis.previous_page_number }}"> Página Anterior &laquo; &nbsp;</a>
+				{% endif %}
+
+						{% for x in paginacao_esq  %}
+							{% if imoveis.number == x %}
+								<b><a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}"> &nbsp;<span style="font-size: 24px;">{{ x }}</span> &nbsp;</b></a>
+								{% elif x == 0 %}
+							{% else %}
+								<a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}"> {{ x }} </a>{% endif %}
+						{% endfor %}
+						{% for x in paginacao_dir %}
+							{% if imoveis.number != x %}
+								{% if imoveis.number < imoveis.paginator.num_pages %}
+									<a href="#{% if url %}{{ url }}{% endif %}/page-{{ x }}"> {{ x }} </a>
+							
+								{% endif %}	
+							{% endif %}
+						{% endfor %}
+
+						{% if imoveis.has_next %}
+							<a href="#{% if url %}{{ url }}{% endif %}/page-{{ imoveis.next_page_number }}" > &nbsp;&raquo; Próxima página </a>
+						{% endif %}
+					</li>
+			</ul>
+		</div>
+		<!-- /.paginator -->
+
+	<div id="content-imoveis">
+		{% for option in imoveis.object_list %}
+		<article id="imovel-{{option.id_imovel}}" class="box-imovel">
+			<div class="img-box">
+				
+				{% if empresa.popup %}
+				<a href="javascript:void(0)" onclick="window.open('http://imoveisemfranca.com.br/pesquisa/{{empresa.site}}/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/', '_blank', 'width=900,height=600,scrollbars=yes') "><img title='Clique para ver mais detalhes!' src='http://www.celuladigital.com.br/sistemas/openwatto/imoveis/amfphp/services/imagens/{{ empresa.id_empresa }}/I_{{option.cod_imovel}}_60_1.JPG' width='150' height='112' border='0' />
+				</a>
+				{% else %}
+				<a href="http://{{empresa.site}}/busca-de-imoveis/#/pesquisa/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/" title="{{ option.anuncio }}"><img title='Clique para ver mais detalhes!' src='http://www.celuladigital.com.br/sistemas/openwatto/imoveis/amfphp/services/imagens/{{ empresa.id_empresa }}/I_{{option.cod_imovel}}_60_1.JPG' width='150' height='112' border='0' />
+				</a>
+				{% endif %}
+				
+			</div>
+			<div id="flags">
+				<span class="flag-finalidade">{{option.finalidade}}</span>
+				<span  class="flag-cidade">
+					<a title="Buscar por {{option.cidade|lower}}" href="http://{{empresa.site}}/busca-de-imoveis/#/tipo-{{option.tipo|lower}}/finalidade-{{option.finalidade|lower}}/cidade-{{option.cidade|slugify}}/">{{option.cidade}}</a>
+				</span>
+				<span  class="flag-bairro">
+					<a title="Buscar por {{option.bairro|lower}}" href="http://{{empresa.site}}/busca-de-imoveis/#/tipo-{{option.tipo|lower}}/finalidade-{{option.finalidade|lower }}/bairro-{{option.bairro|slugify}}/">{{option.bairro}}</a>
+				</span>
+				<span  class="flag-finalidade">
+					<a title="Buscar por {{option.tipo|lower}}" href="http://{{empresa.site}}/busca-de-imoveis/#/tipo-{{option.tipo|lower}}/finalidade-{{option.finalidade|lower}}/cidade-{{option.cidade|slugify}}/">{{option.tipo}}</a>
+				</span>
+				<span class="flag-price">
+					<a href="http://{{empresa.site}}/busca-de-imoveis/#/pesquisa/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/" title="Clique para ver mais detalhes!"><em class="curreny">R$ {{option.valor|cut:","|intcomma }}</em></a>
+				</span>
+				<div style="clear: both"></div>
+			</div>
+			<!-- /.flags -->
+
+			<div class="descricao">
+				{{option.descricao|truncatechars:140 }}
+				<ul class="detalhe-imoveis">
+				<li>Código: {{ option.cod_imovel }}</li>
+					<li>Dormitórios: {{option.dormitorios}}</li>
+					<li>Area Terreno: {{option.area_terreno}}0m</li>
+					<li>Area Construida: {{option.area_construida}}0m</li>
+				</ul>
+				{% if empresa.popup %}
+				<a href="javascript:void(0)" onclick="window.open('http://imoveisemfranca.com.br/pesquisa/{{empresa.site}}/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/', '_blank', 'width=900,height=600,scrollbars=yes') " class="link-more">+ detalhes</a>
+				{% else %}
+				<a href="http://{{empresa.site}}/busca-de-imoveis/#/pesquisa/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}" title="{{ option.anuncio }}" class="link-more">+ detalhes</a>
+				{% endif %}
+			</div>
+		</article>
+		{% endfor %}
+
+		<div class="paginator">
+			<ul>
+				{% if imoveis.has_previous %}
+				<li><a href="#{% if url %}{{ url }}{% endif %}/page-{{ imoveis.previous_page_number }}">Página Anterior</a></li>
+				{% if imoveis.has_next %}|{% endif %}
+				{% endif %}
+				{% if imoveis.has_next %}
+				<li><a href="#{% if url %}{{ url }}{% endif %}/page-{{ imoveis.next_page_number }}">Próxima página</a></li>
+				{% endif %}
+			</ul>
+		</div>
+		<!-- /.paginator -->
+
+	</div>
+
+</div>
+{% endif %}
+
+<!-- Default css -->
+<style type="text/css">
+
+	input, textarea, select {
+		display: block !important;
+		width: 100% !important;
+		padding: 4px !important;
+	}
+	.clearfix {
+		clear: both !important;
+	}
+	#box-search-form {
+		clear: both !important;
+		display: block !important;
+	}
+	.span4 {
+		float: left !important;
+		width: 300px !important;
+	}
+	.button {
+		width: auto !important;
+	}
+	em.currency {
+		font-style: normal;
+	}
+	#content-estate ul, li {
+		list-style-type: none;
+	}
+	#content-estate #box-search-form {
+		float: left;
+		min-width: 350px;
+		height: 350px;
+	}
+	#content-estate #filter-links {
+		float: left;
+	}
+	#content-estate .box {
+		float: left;
+		margin-right: 30px;
+	}
+	#content-estate #imoveis {
+		clear: both;
+		width: 100%;
+	}
+	#content-estate #imoveis .img-box {
+		float:left;
+	}
+	#content-estate #imoveis .img-box img {
+		border: 4px solid #fff;
+		margin: 0 30px 30px 0;
+		width: 150px !important;
+		height: 183px !important;
+	}
+	#content-estate #imoveis .imovel-descricao {
+		float:left;
+	}
+	#content-estate #imoveis .box-imovel {
+		clear: both;
+		padding: 40px 0 40px 30px;
+		border-bottom: 1px solid #fff;
+	}
+	#content-estate #imoveis ul {
+		margin-left: 110px;
+	}
+	#content-estate #imoveis .box-imovel .descricao {
+		padding: 20px 50px 0 200px;
+	}
+	#content-estate #imoveis ul.detalhe-imoveis {
+		margin-left: 20px;
+	}
+	#content-estate #imoveis .box-imovel #flags {
+		height: 30px !important;
+	}
+	#content-estate #imoveis .box-imovel #flags span {
+		float: left;
+		background: #ececec;
+		color: #000 !important;
+		padding: 4px 10px;
+	}
+	#content-estate #imoveis .box-imovel #flags span {
+		opacity: 0.9;
+		filter: alpha(opacity=90);
+	}
+	#content-estate #imoveis .box-imovel #flags span a {
+		color: #444 !important;
+	}
+	#content-estate #imoveis .box-imovel .link-more {
+		background: url(images/contact_input.png) repeat-x #f7f7f7 !important;
+		width: auto !important;
+		border: 0px !important;
+		color: #4c4b4b !important;
+		float: right !important;
+		font-size: 12px !important;
+		text-shadow: 1px 1px 1px #fff !important;
+		text-transform: uppercase !important;
+		margin-right: 9px !important;
+		border-radius: 8px !important;
+		-webkit-border-radius: 8px !important;
+		-moz-border-radius: 8px !important;
+		display: block;
+		padding: 6px 10px 5px;
+		margin: -30px 0 0;
+	}
+	div.paginator ul li {
+		display: inline-block;
+	}
+	.paginator { text-align: center; }
+	.paginator ul { margin-left: 0 !important; }
+	.paginator ul li { margin: 0 10px; }
+	label.radio input[type=radio] {
+		width: 5% !important;
+		display: inline !important;
+	}
+	label.radio span {
+		width: 5% !important;
+		display: inline !important;
+	}
+</style>
+</body>
+</html>

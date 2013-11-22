@@ -20,6 +20,8 @@ urlpatterns = patterns('',
     #url(r'^pesquisa/', 'programa.views.pesquisa'),
     url(r'^pesquisa/', 'programa.views.pesquisa'),
     url(r'^contato/$', 'views.contato'),
+
+    # (r'^site_media/$', 'django.views.serve'),
     #url(r'^(?P<urlEnviada>\S+)/#/', 'programa.views.links'),
     url(r'^', 'programa.views.links'),
     url(r'^media(.*)$', 'django.views.static.serve',{ 'document_root' : settings.MEDIA_ROOT }),
