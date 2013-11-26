@@ -50,11 +50,6 @@ def links(request):
 	quant_pages = 0
 	
 	for dado in parametros:
-		if dado.find('primefrancaimoveis') >= 0:
-			print 'asdasdasdsaasd >= 0'
-			empresa = Empresa.objects.get(site=dado)
-			empresaid = True
-			consulta['id_empresa'] = empresa.id_empresa
 
 		if dado.find('www.') >= 0:
 			empresa = Empresa.objects.get(site=dado)
@@ -133,6 +128,8 @@ def links(request):
 	#           /pesquisa
 	#           /contato"""})
 	
+	if len(list(tipo_temporada)) == 0:
+		tipo_temporada = False
 
 	if imovelvalor:
 		if valorimovel == 'ate-50-mil':
