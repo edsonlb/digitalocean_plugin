@@ -243,19 +243,13 @@ def pesquisa(request):
 		if request.POST['mensagem']:
 			mensagem = request.POST['mensagem'] 
 
-	
-
-		# link_imovel = 'http://imoveisemfranca.com.br/pesquisa/empresa.site/imovel-'+id+'/'
-
-		subject, from_email, to = '=> EMAIL DO SEU SITE', empresa.email, empresa.email
+		subject, from_email, to = '=> EMAIL DO SEU SITE', 'lucas@celuladigital.com.br', 'contato@c2imobiliaria.com.br'
 
 		html_content = render_to_string('sendmail.html', {'nome':nome,
 		  'telefone': telefone,
 		  'email':emailusuario,
 		  'empresa':empresa,
-		  'mensagem': mensagem,
-		  # 'link_imovel': link_imovel,
-		  'codigo_imovel':id,})
+		  'mensagem': mensagem})
 
 		text_content = strip_tags(html_content)
 		msg = EmailMultiAlternatives(subject, text_content, from_email, [to])

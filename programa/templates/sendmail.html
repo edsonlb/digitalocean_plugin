@@ -1,13 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
 </head>
-	<body>
-		<p>Nome: {{nome}}</p>
-		<p>Telefone: {{telefone}}</p>
-		<p>Email: {{email}}</p>
-		<p>Mensagem: {{mensagem}}</p>
-		<p>Imovel: {{imovel}}</p>
-	</body>
+<body>
+
+
+	<table width="100%" cellspacing="0" cellpadding="0" bgcolor="#D3D3D3" border="0" align="left" >
+		<tr>
+		<td valign="top" align="left"><img src="http://www.c2imobiliaria.com.br/wp-content/uploads/canto110.png" width="15" height="15"></td>
+		<td rowspan="2">
+		<p>
+	<font size="1" face="Arial">
+	email enviado de {{empresa.site}}
+	</font>
+</p>
+		<font size="1" face="Verdana">
+				<p><img src="http://www.c2imobiliaria.com.br/wp-content/uploads/2.png" width="20" height="20"> Nome: {{nome}}</p>
+				<p><img src="http://www.c2imobiliaria.com.br/wp-content/uploads/1.png" width="20" height="20"> Telefone: {{telefone}}</p>
+				<p><img src="http://www.c2imobiliaria.com.br/wp-content/uploads/3.png" width="20" height="20"> Email: {{email}}</p>
+				<hr/>
+				<p>Mensagem: {{mensagem}}</p>
+				<hr/>
+				<p>Código do imóvel: {{codigo_imovel}}</p>
+
+				<br/>
+				<li> Obs: Responder este e-mail para: {{email}}</li>
+
+		</font>
+		</td>
+		<td  valign="top" align="right"><img src="http://www.c2imobiliaria.com.br/wp-content/uploads/canto111.png" width="15" height="15"></td>
+		</tr>
+	</table>
+</body>
 </html>
+

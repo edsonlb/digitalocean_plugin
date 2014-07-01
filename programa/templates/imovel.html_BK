@@ -39,8 +39,8 @@
 						<ul>
 							{% for foto in imovel.fotos %}
 							<li>
-								<a href="http://{{ empresa.site }}/fotos_imoveis/{{ foto.foto|upper }}" class="cboxelement" rel="gallery">
-									<img class="image" src="http://{{ empresa.site }}/fotos_imoveis/{{ foto.foto|upper }}" />
+								<a href="http://www.celuladigital.com.br/sistemas/openwatto/imoveis/amfphp/services/imagens/{{ empresa.id_empresa }}/{{ foto.foto }}" class="cboxelement" rel="gallery">
+									<img class="image" src="http://www.celuladigital.com.br/sistemas/openwatto/imoveis/amfphp/services/imagens/{{ empresa.id_empresa }}/{{ foto.foto }}" />
 								</a>
 								<!-- <p class="caption">{{imovel.descricao }}</p> -->
 							</li>

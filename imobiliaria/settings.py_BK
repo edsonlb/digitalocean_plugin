@@ -162,6 +162,6 @@ LOGGING = {
 # Config email
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'celuladigitalsoftware@gmail.com'
-EMAIL_HOST_PASSWORD = 'CELULA3008'
+EMAIL_HOST_USER = 'lucas@celuladigital.com.br'
+EMAIL_HOST_PASSWORD = 'lucascastejon'
 EMAIL_PORT = 587

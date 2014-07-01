@@ -1,6 +1,5 @@
 # -*- coding: utf8 -*-
 from __future__ import unicode_literals
-from django.db.models import Q
 from django.db import models
 
 class Acesso(models.Model):
@@ -179,14 +178,14 @@ class Imovel(models.Model):
 
 	def foto_fachada(self):
 
-		foto = Fotos.objects.filter(
-			Q(foto__contains='_60_1.JPG') | Q (foto__contains='_60_1.jpg'),
-			id_empresa=self.id_empresa,
-			id_imovel = self.id_imovel)[:1] # __contains corresponde ao LIKE do SQL
+		foto = Fotos.objects.filter(id_imovel = self.id_imovel, foto__contains='_60_1.JPG')[:1] # __contains corresponde ao LIKE do SQL
 
-		if not foto:
-			foto1 = Fotos.objects.filter(id_empresa=self.id_empresa, id_imovel = self.id_imovel)[:1] # __contains corresponde ao LIKE do SQL
-			return foto1[0].foto
+		if len(foto[0].foto) < 8:
+			foto1 = Fotos.objects.filter(id_imovel = self.id_imovel, foto__contains='_60_')[:1] # __contains corresponde ao LIKE do SQL
+			if len(foto1[0].foto) < 4:
+				return 'imagem_padrao.png'
+			else:
+				return foto1[0].foto
 		
 		return foto[0].foto
 	
