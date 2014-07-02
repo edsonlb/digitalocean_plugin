@@ -57,7 +57,9 @@ def links(request):
 
 		if dado.find('www.') >= 0:
 			gclid = dado.split('?')
-			empresa = Empresa.objects.get(site=gclid[0])  #www.c2imobiliaria.com.br?gclid=CjgKEAjwuMmdBRDljdfi2_qQpxkSJADDCRwsbXOaUfG2iywwTzW4o5aTWFxUk2IltetsQmCyHErkJ_D_BwE
+			dado = gclid[0]
+			print dado
+			empresa = Empresa.objects.get(site=dado)  #www.c2imobiliaria.com.br?gclid=CjgKEAjwuMmdBRDljdfi2_qQpxkSJADDCRwsbXOaUfG2iywwTzW4o5aTWFxUk2IltetsQmCyHErkJ_D_BwE
 			empresaid = True
 			consulta['id_empresa'] = empresa.id_empresa
 
