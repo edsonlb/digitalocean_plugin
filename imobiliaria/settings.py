@@ -19,8 +19,8 @@ DATABASES = {
         'NAME': 'celuladigital12',                      # Or path to database file if using sqlite3.
         'USER': 'root',
         'PASSWORD': 'adm9090',
-        'HOST': '127.0.0.1', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        # 'HOST': 'mysql03.celuladigital.com.br',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        #'HOST': '127.0.0.1', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'HOST': '192.241.223.4',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '3306',                      # Set to empty string for default.
     }
 }
