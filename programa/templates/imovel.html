@@ -147,7 +147,7 @@
 					{% if relacionado.cod_imovel != imovel.cod_imovel %}
 						<div id="relacionado-{{ realacionado.id_imovel }}" class="item-imovel clearfix">
 							<div class="item-imovel-content">
-								<a href="javascript:void(0)" onclick="window.open('http://imoveisemfranca.com.br/pesquisa/{{empresa.site}}/imovel-{{relacionado.cod_imovel}}/{% if relacionado.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if relacionado.finalidade == 'VENDA'%}vende-se{% endif %}{% if relacionado.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{relacionado.tipo|slugify}}-em-{{relacionado.cidade|slugify}}-no-bairro-{{relacionado.bairro|slugify}}/', '_blank', 'width=900,height=600,scrollbars=yes') "><img title='Clique para ver mais detalhes!' src='http://{{ empresa.site }}/fotos_imoveis/{{ I_{{relacionado.cod_imovel}}_60_1.JPG }}' width='150' height='112' border='0' />
+								<a href="javascript:void(0)" onclick="window.open('http://imoveisemfranca.com.br/pesquisa/{{empresa.site}}/imovel-{{relacionado.cod_imovel}}/{% if relacionado.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if relacionado.finalidade == 'VENDA'%}vende-se{% endif %}{% if relacionado.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{relacionado.tipo|slugify}}-em-{{relacionado.cidade|slugify}}-no-bairro-{{relacionado.bairro|slugify}}/', '_blank', 'width=900,height=600,scrollbars=yes') "><img title='Clique para ver mais detalhes!' src='http://{{ empresa.site }}/fotos_imoveis/I_{{relacionado.cod_imovel}}_60_1.JPG' width='150' height='112' border='0' />
 									<p>{{ relacionado.finalidade }} > {{ relacionado.tipo }} > {{ relacionado.cidade }}<br>R$ {{ relacionado.valor|cut:","|intcomma }}</p>
 								</a>
 							</div> <!-- end .item-image -->
