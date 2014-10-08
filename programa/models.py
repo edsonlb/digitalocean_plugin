@@ -187,6 +187,9 @@ class Imovel(models.Model):
         if not foto:
             foto = Fotos.objects.filter(id_empresa=self.id_empresa, id_imovel = self.id_imovel)[:1] # __contains corresponde ao LIKE do SQL
         
+        if not foto:
+            foto[0] = 'LOGOPADRAO.BMP';
+                
         return foto[0].foto
     
     class Meta:
