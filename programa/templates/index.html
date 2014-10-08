@@ -180,10 +180,10 @@
 			<div class="img-box">
 				
 				{% if empresa.popup %}
-				<a href="javascript:void(0)" onclick="window.open('http://imoveisemfranca.com.br/pesquisa/{{empresa.site}}/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/', '_blank', 'width=900,height=600,scrollbars=yes') "><img title='Clique para ver mais detalhes!' src='/fotos_imoveis/{{option.foto_fachada }}' width='150' height='112' border='0' />
+				<a href="javascript:void(0)" onclick="window.open('http://imoveisemfranca.com.br/pesquisa/{{empresa.site}}/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/', '_blank', 'width=900,height=600,scrollbars=yes') "><img title='Clique para ver mais detalhes!' src='/fotos_imoveis/{{option.foto_fachada|upper }}' width='150' height='112' border='0' />
 				</a>
 				{% else %}
-				<a href="http://{{empresa.site}}/busca-de-imoveis/#/pesquisa/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/" title="{{ option.anuncio }}"><img title='Clique para ver mais detalhes!' src='/fotos_imoveis/{{option.foto_fachada }}' width='150' height='112' border='0' />
+				<a href="http://{{empresa.site}}/busca-de-imoveis/#/pesquisa/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/" title="{{ option.anuncio }}"><img title='Clique para ver mais detalhes!' src='/fotos_imoveis/{{option.foto_fachada|upper }}' width='150' height='112' border='0' />
 				</a>
 				{% endif %}
 				
