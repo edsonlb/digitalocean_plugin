@@ -294,8 +294,8 @@ def listagem(request):
                 txt += '<Imovel>'
                 txt += '<CodigoImovel>'+str(imovel.cod_imovel)+'</CodigoImovel>'
                 txt += '<TipoImovel>'+imovel.tipo+'</TipoImovel>'
-                txt += '<SubTipoImovel>Padrão</SubTipoImovel >'
-                txt += '<CategoriaImovel>Padrão</CategoriaImovel>'
+                txt += "<SubTipoImovel>Padrão</SubTipoImovel >".decode("utf8")
+                txt += "<CategoriaImovel>Padrão</CategoriaImovel>"
                 txt += '<Cidade>'+imovel.cidade+'</Cidade>'
                 txt += '<Bairro>'+imovel.bairro+'</Bairro>'
                 txt += '<Numero>'+imovel.numero+'</Numero>'
