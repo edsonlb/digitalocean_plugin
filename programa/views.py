@@ -309,7 +309,7 @@ def listagem(request):
                 txt += '<PrecoCondominio />'   
                 txt += '<AreaUtil>'+str(imovel.area_construida)+'</AreaUtil>'
                 txt += '<AreaTotal>'+str(imovel.area_terreno)+'</AreaTotal>'
-                txt += '<UnidadeMetrica>metros<UnidadeMetrica>'
+                txt += '<UnidadeMetrica>metros</UnidadeMetrica>'
                 txt += '<QtdDormitorios>'+str(imovel.dormitorios)+'</QtdDormitorios>'
                 txt += '<QtdSuites>'+str(imovel.suite)+'</QtdSuites>'
                 txt += '<QtdBanheiros>'+str(imovel.banheiros)+'</QtdBanheiros>'
