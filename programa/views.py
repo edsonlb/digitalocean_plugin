@@ -292,7 +292,7 @@ def listagem(request):
 
             for imovel in imoveis:
                 txt += '<Imovel>'
-                txt += '<CodigoImovel>'+imovel.cod_imovel+'</CodigoImovel>'
+                txt += '<CodigoImovel>'+str(imovel.cod_imovel)+'</CodigoImovel>'
                 txt += '<TipoImovel>'+imovel.tipo+'</TipoImovel>'
                 txt += '<SubTipoImovel>Padrão</SubTipoImovel >'
                 txt += '<CategoriaImovel>Padrão</CategoriaImovel>'
