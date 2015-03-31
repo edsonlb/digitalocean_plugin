@@ -284,57 +284,51 @@ def listagem(request):
         if dado.find('saida-') >= 0:
                 saida = dado.replace('saida-', '')
 
-    saida = 'http://imoveisemfranca.com.br/listagem/www.CLIENTE.com.br/saida-PARCEIRO/arquivo.xml'
-    if imoveis:
-        saida = '<?xml version="1.0" encoding="UTF-8"?><Carga xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Imoveis>'+
+    txt = 'http://imoveisemfranca.com.br/listagem/www.CLIENTE.com.br/saida-PARCEIRO/arquivo.xml'
 
-        for imovel in imoveis:
-            saida += '<Imovel>'
-            saida += '<CodigoImovel>'+imovel.cod_imovel+'</CodigoImovel>'
-            saida += '<TipoImovel>'+imovel.tipo+'</TipoImovel>'
-            saida += '<SubTipoImovel>Padrão</SubTipoImovel >'
-            saida += '<CategoriaImovel>Padrão</CategoriaImovel>'
-            saida += '<Cidade>'+imovel.cidade+'</Cidade>'
-            saida += '<Bairro>'+imovel.bairro+'</Bairro>'
-            saida += '<Numero>'+imovel.numero+'</Numero>'
-            saida += '<Complemento />'
-            saida += '<CEP />'
-            if imovel.finalidade = 'VENDA':
-                saida += '<PrecoVenda>'+imovel.valor+'</PrecoVenda>'
-            if imovel.finalidade = 'ALUGUEL':
-                saida += '<PrecoLocacao>'+imovel.valor+'</PrecoLocacao>'
-            if imovel.finalidade = 'TEMPORADA':
-                saida += '<PrecoLocacaoTemporada>'+imovel.valor+'</PrecoLocacaoTemporada>'
-            saida += '<PrecoCondominio />'   
-            saida += '<AreaUtil>'+imovel.area_construida+'</AreaUtil>'
-            saida += '<AreaTotal>'+imovel.area_terreno+'</AreaTotal>'
-            saida += '<UnidadeMetrica />'
-            saida += '<QtdDormitorios>'+imovel.dormitorios+'</QtdDormitorios>'
-            saida += '<QtdSuites>'+imovel.suite+'</QtdSuites>'
-            saida += '<QtdBanheiros>'+imovel.banheiros+'</QtdBanheiros>'
-            saida += '<QtdVagas>'+imovel.garagem+'</QtdVagas>'
-            saida += '<Fotos>'
-            for img in imovel.fotos:
-                saida += '<Foto>'
-                saida += '<NomeArquivo>'+img.foto+'</NomeArquivo>'
-                saida += '<URLArquivo>http://'+empresa.site+'/fotos_imoveis/'+img.foto.upper()+'</URLArquivo>'
-                saida += '<Principal>'+img.fachada+'</Principal>'
-                saida += '<Alterada>1</Alterada>'
-                saida += '</Foto>'
-            saida += '</Fotos>'
-            saida += '</Imovel>'
-        saida += '</Imoveis>'
-        saida += '</Carga>'
-          
-    else:
-        return render_to_response('listagem.html', {'saida': saida})
+    if saida = 'zap':
+        if imoveis:
+            txt = '<?xml version="1.0" encoding="UTF-8"?><Carga xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Imoveis>'
 
-                
-
-
-
-    return render_to_response('listagem.html', {'saida': saida})
-
+            for imovel in imoveis:
+                txt += '<Imovel>'
+                txt += '<CodigoImovel>'+imovel.cod_imovel+'</CodigoImovel>'
+                txt += '<TipoImovel>'+imovel.tipo+'</TipoImovel>'
+                txt += '<SubTipoImovel>Padrão</SubTipoImovel >'
+                txt += '<CategoriaImovel>Padrão</CategoriaImovel>'
+                txt += '<Cidade>'+imovel.cidade+'</Cidade>'
+                txt += '<Bairro>'+imovel.bairro+'</Bairro>'
+                txt += '<Numero>'+imovel.numero+'</Numero>'
+                txt += '<Complemento />'
+                txt += '<CEP />'
+                if imovel.finalidade = 'VENDA':
+                    txt += '<PrecoVenda>'+imovel.valor+'</PrecoVenda>'
+                if imovel.finalidade = 'ALUGUEL':
+                    txt += '<PrecoLocacao>'+imovel.valor+'</PrecoLocacao>'
+                if imovel.finalidade = 'TEMPORADA':
+                    txt += '<PrecoLocacaoTemporada>'+imovel.valor+'</PrecoLocacaoTemporada>'
+                txt += '<PrecoCondominio />'   
+                txt += '<AreaUtil>'+imovel.area_construida+'</AreaUtil>'
+                txt += '<AreaTotal>'+imovel.area_terreno+'</AreaTotal>'
+                txt += '<UnidadeMetrica />'
+                txt += '<QtdDormitorios>'+imovel.dormitorios+'</QtdDormitorios>'
+                txt += '<QtdSuites>'+imovel.suite+'</QtdSuites>'
+                txt += '<QtdBanheiros>'+imovel.banheiros+'</QtdBanheiros>'
+                txt += '<QtdVagas>'+imovel.garagem+'</QtdVagas>'
+                txt += '<Fotos>'
+                for img in imovel.fotos:
+                    txt += '<Foto>'
+                    txt += '<NomeArquivo>'+img.foto+'</NomeArquivo>'
+                    txt += '<URLArquivo>http://'+empresa.site+'/fotos_imoveis/'+img.foto.upper()+'</URLArquivo>'
+                    txt += '<Principal>'+img.fachada+'</Principal>'
+                    txt += '<Alterada>1</Alterada>'
+                    txt += '</Foto>'
+                txt += '</Fotos>'
+                txt += '</Imovel>'
+            txt += '</Imoveis>'
+            txt += '</Carga>'  
+            
+    return render_to_response('listagem.html', {'saida': txt})
 
 
 
