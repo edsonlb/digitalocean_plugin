@@ -20,6 +20,9 @@ urlpatterns = patterns('',
     #url(r'^pesquisa/', 'programa.views.pesquisa'),
     url(r'^pesquisa/', 'programa.views.pesquisa'),
     url(r'^contato/$', 'views.contato'),
+    url(r'^listagem/', 'programa.views.listagem'), #PROCESSO DE EXPORTACAO DOS IMOVEIS
+
+    #http://imoveisemfranca.com.br/pesquisa/www.c2imobiliaria.com.br/imovel-3229/vende-se-terreno-em-franca-no-bairro-santa-eugenia/
 
     # (r'^site_media/$', 'django.views.serve'),
     #url(r'^(?P<urlEnviada>\S+)/#/', 'programa.views.links'),
