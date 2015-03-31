@@ -298,23 +298,23 @@ def listagem(request):
                 txt += "<CategoriaImovel>Padrão</CategoriaImovel>".decode("utf8")
                 txt += '<Cidade>'+imovel.cidade+'</Cidade>'.decode("utf8")
                 txt += '<Bairro>'+imovel.bairro+'</Bairro>'.decode("utf8")
-                txt += '<Numero>'+imovel.numero+'</Numero>'.decode("utf8")
+                txt += '<Numero>'+str(imovel.numero)+'</Numero>'.decode("utf8")
                 txt += '<Complemento />'
                 txt += '<CEP />'
                 if imovel.finalidade == 'VENDA':
-                    txt += '<PrecoVenda>'+imovel.valor+'</PrecoVenda>'
+                    txt += '<PrecoVenda>'+str(imovel.valor)+'</PrecoVenda>'
                 if imovel.finalidade == 'ALUGUEL':
-                    txt += '<PrecoLocacao>'+imovel.valor+'</PrecoLocacao>'
+                    txt += '<PrecoLocacao>'+str(imovel.valor)+'</PrecoLocacao>'
                 if imovel.finalidade == 'TEMPORADA':
-                    txt += '<PrecoLocacaoTemporada>'+imovel.valor+'</PrecoLocacaoTemporada>'
+                    txt += '<PrecoLocacaoTemporada>'+str(imovel.valor)+'</PrecoLocacaoTemporada>'
                 txt += '<PrecoCondominio />'   
-                txt += '<AreaUtil>'+imovel.area_construida+'</AreaUtil>'
-                txt += '<AreaTotal>'+imovel.area_terreno+'</AreaTotal>'
-                txt += '<UnidadeMetrica />'
-                txt += '<QtdDormitorios>'+imovel.dormitorios+'</QtdDormitorios>'
-                txt += '<QtdSuites>'+imovel.suite+'</QtdSuites>'
-                txt += '<QtdBanheiros>'+imovel.banheiros+'</QtdBanheiros>'
-                txt += '<QtdVagas>'+imovel.garagem+'</QtdVagas>'
+                txt += '<AreaUtil>'+str(imovel.area_construida)+'</AreaUtil>'
+                txt += '<AreaTotal>'+str(imovel.area_terreno)+'</AreaTotal>'
+                txt += '<UnidadeMetrica>metros<UnidadeMetrica>'
+                txt += '<QtdDormitorios>'+str(imovel.dormitorios)+'</QtdDormitorios>'
+                txt += '<QtdSuites>'+str(imovel.suite)+'</QtdSuites>'
+                txt += '<QtdBanheiros>'+str(imovel.banheiros)+'</QtdBanheiros>'
+                txt += '<QtdVagas>'+str(imovel.garagem)+'</QtdVagas>'
                 txt += '<Fotos>'
                 for img in imovel.fotos:
                     txt += '<Foto>'
