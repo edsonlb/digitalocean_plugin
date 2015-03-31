@@ -301,11 +301,11 @@ def listagem(request):
                 txt += '<Numero>'+imovel.numero+'</Numero>'
                 txt += '<Complemento />'
                 txt += '<CEP />'
-                if imovel.finalidade = 'VENDA':
+                if imovel.finalidade == 'VENDA':
                     txt += '<PrecoVenda>'+imovel.valor+'</PrecoVenda>'
-                if imovel.finalidade = 'ALUGUEL':
+                if imovel.finalidade == 'ALUGUEL':
                     txt += '<PrecoLocacao>'+imovel.valor+'</PrecoLocacao>'
-                if imovel.finalidade = 'TEMPORADA':
+                if imovel.finalidade == 'TEMPORADA':
                     txt += '<PrecoLocacaoTemporada>'+imovel.valor+'</PrecoLocacaoTemporada>'
                 txt += '<PrecoCondominio />'   
                 txt += '<AreaUtil>'+imovel.area_construida+'</AreaUtil>'
