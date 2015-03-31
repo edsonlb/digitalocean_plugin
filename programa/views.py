@@ -320,7 +320,7 @@ def listagem(request):
                     txt += '<Foto>'
                     txt += '<NomeArquivo>'+img.foto+'</NomeArquivo>'
                     txt += '<URLArquivo>http://'+empresa.site+'/fotos_imoveis/'+img.foto.upper()+'</URLArquivo>'
-                    txt += '<Principal>'+img.fachada+'</Principal>'
+                    txt += '<Principal>'+str(img.fachada)+'</Principal>'
                     txt += '<Alterada>1</Alterada>'
                     txt += '</Foto>'
                 txt += '</Fotos>'
