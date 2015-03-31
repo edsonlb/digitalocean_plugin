@@ -286,7 +286,7 @@ def listagem(request):
 
     txt = 'http://imoveisemfranca.com.br/listagem/www.CLIENTE.com.br/saida-PARCEIRO/arquivo.xml'
 
-    if saida = 'zap':
+    if saida == 'zap':
         if imoveis:
             txt = '<?xml version="1.0" encoding="UTF-8"?><Carga xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Imoveis>'
 
