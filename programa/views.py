@@ -316,7 +316,7 @@ def listagem(request):
                 txt += '<QtdBanheiros>'+str(imovel.banheiros)+'</QtdBanheiros>'
                 txt += '<QtdVagas>'+str(imovel.garagem)+'</QtdVagas>'
                 txt += '<Fotos>'
-                for img in imovel.fotos.all():
+                for img in imovel.fotos():
                     txt += '<Foto>'
                     txt += '<NomeArquivo>'+img.foto+'</NomeArquivo>'
                     txt += '<URLArquivo>http://'+empresa.site+'/fotos_imoveis/'+img.foto.upper()+'</URLArquivo>'
