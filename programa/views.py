@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# coding: utf-8
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.shortcuts import render_to_response
