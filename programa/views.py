@@ -326,7 +326,7 @@ def listagem(request):
                 txt += '</Imovel>' 
             txt += '</Imoveis></Carga>' 
             
-    return render_to_response('listagem.xml', {'saida': txt}, content_type="application/xhtml+xml")
+    return render_to_response('listagem.html', {'saida': txt}, content_type="application/xhtml+xml")
 
 
 
