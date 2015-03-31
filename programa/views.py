@@ -288,8 +288,6 @@ def listagem(request):
 
     if saida == 'zap':
         if imoveis:
-            txt = '<?xml version="1.0" encoding="UTF-8"?><Carga xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Imoveis>'
-
             for imovel in imoveis:
                 txt += '<Imovel>'
                 txt += '<CodigoImovel>'+str(imovel.cod_imovel)+'</CodigoImovel>'
@@ -324,11 +322,9 @@ def listagem(request):
                     txt += '<Alterada>1</Alterada>'
                     txt += '</Foto>'
                 txt += '</Fotos>'
-                txt += '</Imovel>'
-            txt += '</Imoveis>'
-            txt += '</Carga>'  
+                txt += '</Imovel>'  
             
-    return render_to_response('listagem.html', {'saida': txt})
+    return render_to_response('listagem.xml', {'saida': txt})
 
 
 
