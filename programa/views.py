@@ -293,12 +293,12 @@ def listagem(request):
             for imovel in imoveis:
                 txt += '<Imovel>'
                 txt += '<CodigoImovel>'+str(imovel.cod_imovel)+'</CodigoImovel>'
-                txt += '<TipoImovel>'+imovel.tipo+'</TipoImovel>'
+                txt += '<TipoImovel>'+imovel.tipo+'</TipoImovel>'.decode("utf8")
                 txt += "<SubTipoImovel>Padrão</SubTipoImovel >".decode("utf8")
-                txt += "<CategoriaImovel>Padrão</CategoriaImovel>"
-                txt += '<Cidade>'+imovel.cidade+'</Cidade>'
-                txt += '<Bairro>'+imovel.bairro+'</Bairro>'
-                txt += '<Numero>'+imovel.numero+'</Numero>'
+                txt += "<CategoriaImovel>Padrão</CategoriaImovel>".decode("utf8")
+                txt += '<Cidade>'+imovel.cidade+'</Cidade>'.decode("utf8")
+                txt += '<Bairro>'+imovel.bairro+'</Bairro>'.decode("utf8")
+                txt += '<Numero>'+imovel.numero+'</Numero>'.decode("utf8")
                 txt += '<Complemento />'
                 txt += '<CEP />'
                 if imovel.finalidade == 'VENDA':
