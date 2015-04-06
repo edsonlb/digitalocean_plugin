@@ -306,11 +306,17 @@ def listagem(request):
                     txt += '<PrecoLocacao>'+str(imovel.valor)+'</PrecoLocacao>'
                 if imovel.finalidade == 'TEMPORADA':
                     txt += '<PrecoLocacaoTemporada>'+str(imovel.valor)+'</PrecoLocacaoTemporada>'
-                txt += '<PrecoCondominio />'   
-                txt += '<AreaUtil>'+str(imovel.area_construida)+'</AreaUtil>'
+                txt += '<PrecoCondominio />'  
+                if imovel.area_construida > 0: 
+                    txt += '<AreaUtil>'+str(imovel.area_construida)+'</AreaUtil>'
+                else:
+                    txt += '<AreaUtil>200</AreaUtil>'
                 txt += '<AreaTotal>'+str(imovel.area_terreno)+'</AreaTotal>'
-                txt += '<UnidadeMetrica>metros</UnidadeMetrica>'
-                txt += '<QtdDormitorios>'+str(imovel.dormitorios)+'</QtdDormitorios>'
+                txt += '<UnidadeMetrica>m²</UnidadeMetrica>'
+                if imovel.dormitorios > 0:
+                    txt += '<QtdDormitorios>'+str(imovel.dormitorios)+'</QtdDormitorios>'
+                else:
+                    txt += '<QtdDormitorios>0</QtdDormitorios>'
                 txt += '<QtdSuites>'+str(imovel.suite)+'</QtdSuites>'
                 txt += '<QtdBanheiros>'+str(imovel.banheiros)+'</QtdBanheiros>'
                 txt += '<QtdVagas>'+str(imovel.garagem)+'</QtdVagas>'
