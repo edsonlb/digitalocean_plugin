@@ -293,8 +293,8 @@ def listagem(request):
                 txt += '<Imovel>'
                 txt += '<CodigoImovel>'+str(imovel.cod_imovel)+'</CodigoImovel>'
                 txt += u'<TipoImovel>'+imovel.tipo+'</TipoImovel>'.decode("utf8")
-                txt += u"<SubTipoImovel>Padrão</SubTipoImovel >".decode("utf8")
-                txt += u"<CategoriaImovel>Padrão</CategoriaImovel>".decode("utf8")
+                txt += u"<SubTipoImovel>Padrão</SubTipoImovel >"
+                txt += u"<CategoriaImovel>Padrão</CategoriaImovel>"
                 txt += u'<Cidade>'+imovel.cidade+'</Cidade>'.decode("utf8")
                 txt += u'<Bairro>'+imovel.bairro+'</Bairro>'.decode("utf8")
                 txt += '<Numero>'+str(imovel.numero)+'</Numero>'.decode("utf8")
