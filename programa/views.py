@@ -295,8 +295,8 @@ def listagem(request):
                 txt += u'<TipoImovel>'+imovel.tipo+'</TipoImovel>'.decode("utf8")
                 txt += u"<SubTipoImovel>Padrão</SubTipoImovel >"
                 txt += u"<CategoriaImovel>Padrão</CategoriaImovel>"
-                txt += u'<Cidade>'+imovel.cidade+'</Cidade>'.decode("utf8")
-                txt += u'<Bairro>'+imovel.bairro+'</Bairro>'.decode("utf8")
+                txt += u'<Cidade>'+imovel.cidade+'</Cidade>'
+                txt += u'<Bairro>'+imovel.bairro+'</Bairro>'
                 txt += '<Numero>'+str(imovel.numero)+'</Numero>'.decode("utf8")
                 txt += '<Complemento />'
                 txt += '<CEP />'
