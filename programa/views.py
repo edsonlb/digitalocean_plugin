@@ -292,11 +292,11 @@ def listagem(request):
             for imovel in imoveis:
                 txt += '<Imovel>'
                 txt += '<CodigoImovel>'+str(imovel.cod_imovel)+'</CodigoImovel>'
-                txt += '<TipoImovel>'+imovel.tipo+'</TipoImovel>'.decode("utf8")
-                txt += "<SubTipoImovel>Padrão</SubTipoImovel >".decode("utf8")
-                txt += "<CategoriaImovel>Padrão</CategoriaImovel>".decode("utf8")
-                txt += '<Cidade>'+imovel.cidade+'</Cidade>'.decode("utf8")
-                txt += '<Bairro>'+imovel.bairro+'</Bairro>'.decode("utf8")
+                txt += u'<TipoImovel>'+imovel.tipo+'</TipoImovel>'.decode("utf8")
+                txt += u"<SubTipoImovel>Padrão</SubTipoImovel >".decode("utf8")
+                txt += u"<CategoriaImovel>Padrão</CategoriaImovel>".decode("utf8")
+                txt += u'<Cidade>'+imovel.cidade+'</Cidade>'.decode("utf8")
+                txt += u'<Bairro>'+imovel.bairro+'</Bairro>'.decode("utf8")
                 txt += '<Numero>'+str(imovel.numero)+'</Numero>'.decode("utf8")
                 txt += '<Complemento />'
                 txt += '<CEP />'
@@ -312,7 +312,7 @@ def listagem(request):
                 else:
                     txt += '<AreaUtil>200</AreaUtil>'
                 txt += '<AreaTotal>'+str(imovel.area_terreno)+'</AreaTotal>'
-                txt += '<UnidadeMetrica>m²</UnidadeMetrica>'
+                txt += u'<UnidadeMetrica>m²</UnidadeMetrica>'
                 if imovel.dormitorios > 0:
                     txt += '<QtdDormitorios>'+str(imovel.dormitorios)+'</QtdDormitorios>'
                 else:
