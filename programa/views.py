@@ -279,7 +279,7 @@ def listagem(request):
     for dado in parametros:
         if dado.find('www.') >= 0:
             empresa = Empresa.objects.get(site=dado)
-            imoveis = Imovel.objects.filter(id_empresa=empresa.id_empresa)
+            imoveis = Imovel.objects.filter(id_empresa=empresa.id_empresa)[:150]
 
         if dado.find('saida-') >= 0:
                 saida = dado.replace('saida-', '')
@@ -298,6 +298,12 @@ def listagem(request):
                 txt += u'<Cidade>'+imovel.cidade+'</Cidade>'
                 txt += u'<Bairro>'+imovel.bairro+'</Bairro>'
                 txt += '<Numero>'+str(imovel.numero)+'</Numero>'.decode("utf8")
+                if len(imovel.documentos.strip()) >= 0 and len(imovel.documentos.strip()) < 50:
+                    txt += '<TipoOferta>1</TipoOferta>'
+                elif len(imovel.documentos.strip()) >= 50 and len(imovel.documentos.strip()) < 140:
+                    txt += '<TipoOferta>2</TipoOferta>'
+                elif len(imovel.documentos.strip()) >= 140 and len(imovel.documentos.strip()) < 200:
+                    txt += '<TipoOferta>3</TipoOferta>'   
                 txt += '<Complemento />'
                 txt += '<CEP />'
                 if imovel.finalidade == 'VENDA':
