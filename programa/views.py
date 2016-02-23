@@ -298,11 +298,11 @@ def listagem(request):
                 txt += u'<Cidade>'+imovel.cidade+'</Cidade>'
                 txt += u'<Bairro>'+imovel.bairro+'</Bairro>'
                 txt += '<Numero>'+str(imovel.numero)+'</Numero>'.decode("utf8")
-                if len(imovel.documentos.strip()) >= 0 and len(imovel.documentos.strip()) < 50:
+                if len(imovel.documentos.strip()) >= 0 and len(imovel.documentos.strip()) < 30:
                     txt += '<TipoOferta>1</TipoOferta>'
-                elif len(imovel.documentos.strip()) >= 50 and len(imovel.documentos.strip()) < 140:
+                elif len(imovel.documentos.strip()) >= 30 and len(imovel.documentos.strip()) < 80:
                     txt += '<TipoOferta>2</TipoOferta>'
-                elif len(imovel.documentos.strip()) >= 140 and len(imovel.documentos.strip()) < 200:
+                elif len(imovel.documentos.strip()) >= 80 and len(imovel.documentos.strip()) < 100:
                     txt += '<TipoOferta>3</TipoOferta>'   
                 txt += '<Complemento />'
                 txt += '<CEP />'
