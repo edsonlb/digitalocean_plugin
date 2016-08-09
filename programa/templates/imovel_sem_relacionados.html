@@ -236,7 +236,7 @@
       <div class="img-box">
         {% if option.photo %}
         {% if empresa.popup %}
-        <a href="javascript:void(0)" onclick="window.open('http://imoveisemfranca.com.br/pesquisa/{{empresa.site}}/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/', '_blank', 'width=900,height=600,scrollbars=yes') ">
+        <a href="javascript:void(0)" onclick="window.open('http://192.241.223.4/pesquisa/{{empresa.site}}/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/', '_blank', 'width=900,height=600,scrollbars=yes') ">
         {% else %}
         <a href="http://{{empresa.site}}/busca-de-imoveis/#/pesquisa/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/" title="{{ option.anuncio }}">
         {% endif %}
@@ -272,7 +272,7 @@
       </div>
 
       {% if empresa.popup %}
-        <a href="javascript:void(0)" onclick="window.open('http://imoveisemfranca.com.br/pesquisa/{{empresa.site}}/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}', '_blank', 'width=900,height=600,scrollbars=yes') " class="link-more">
+        <a href="javascript:void(0)" onclick="window.open('http://192.241.223.4/pesquisa/{{empresa.site}}/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}', '_blank', 'width=900,height=600,scrollbars=yes') " class="link-more">
         {% else %}
         <a href="http://{{empresa.site}}/busca-de-imoveis/#/pesquisa/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}" title="{{ option.anuncio }}" class="link-more">
         {% endif %}+ detalhes</a>

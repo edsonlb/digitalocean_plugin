@@ -131,7 +131,7 @@ def links(request):
     # else:
     #   return render_to_response('error.html', {
     #           'msg': """ERRO: Siga o exemplo abaixo para formatar a sua URL: 
-    #           http://imoveisemfranca.com.br/www.imoveisemfranca.com.br
+    #           http://192.241.223.4.com.br/www.site.com.br
     #           /pesquisa
     #           /contato"""})
     
@@ -248,7 +248,7 @@ def pesquisa(request):
 
     
 
-        # link_imovel = 'http://imoveisemfranca.com.br/pesquisa/empresa.site/imovel-'+id+'/'
+        # link_imovel = 'http://192.241.223.4/pesquisa/empresa.site/imovel-'+id+'/'
 
         subject, from_email, to = '=> EMAIL DO SEU SITE', empresa.email, empresa.email
 
@@ -284,7 +284,7 @@ def listagem(request):
         if dado.find('saida-') >= 0:
                 saida = dado.replace('saida-', '')
 
-    txt = 'http://imoveisemfranca.com.br/listagem/www.CLIENTE.com.br/saida-PARCEIRO/arquivo.xml'
+    txt = 'http://192.241.223.4/listagem/www.CLIENTE.com.br/saida-PARCEIRO/arquivo.xml'
 
     if saida == 'zap':
         if imoveis:

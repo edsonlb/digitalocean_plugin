@@ -117,7 +117,7 @@ def links(request):
 	# else:
 	# 	return render_to_response('error.html', {
 	# 			'msg': """ERRO: Siga o exemplo abaixo para formatar a sua URL: 
-	# 			http://imoveisemfranca.com.br/www.imoveisemfranca.com.br
+	# 			http://192.241.223.4/www.site.com.br
 	# 			/pesquisa
 	# 			/contato"""})
 

@@ -221,7 +221,7 @@
         <div class="item">
           <div class="item-image">
             <img src="http://celuladigital.com.br/hospedagem/openwatto/img_mini/{{ empresa.id_empresa }}_{{ option.photo }}" class='portfolio'  alt='{{option.finalidade}} - {{option.cidade}}' width='207' height='136' />      <span class="overlay"></span>
-            <a class="more-icon" href="javascript:void(0)" onclick="window.open('http://imoveisemfranca.com.br/pesquisa/{{empresa.site}}/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/', '_blank', 'width=900,height=600,scrollbars=yes') ">{{option.finalidade}} - {{option.tipo}} - {{option.cidade}}</a>
+            <a class="more-icon" href="javascript:void(0)" onclick="window.open('http://192.241.223.4/pesquisa/{{empresa.site}}/imovel-{{option.cod_imovel}}/{% if option.finalidade == 'ALUGUEL'%}aluga-se{% endif %}{% if option.finalidade == 'VENDA'%}vende-se{% endif %}{% if option.finalidade == 'TEMPORADA'%}temporada-em{% endif %}-{{option.tipo|slugify}}-em-{{option.cidade|slugify}}-no-bairro-{{option.bairro|slugify}}/', '_blank', 'width=900,height=600,scrollbars=yes') ">{{option.finalidade}} - {{option.tipo}} - {{option.cidade}}</a>
             <p style="display: block; padding: 3px 5px 4px; font-size: 14px; font-weight: bold;">{{option.finalidade}} - {{option.tipo}} - {{option.cidade}}</p>
             <p style="display: block; padding: 3px 5px 4px; font-size: 14px; font-weight: bold;">{{option.valor}}</p>
           </div> <!-- end .item-image -->

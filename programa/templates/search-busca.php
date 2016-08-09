@@ -9,7 +9,7 @@
 <script type='text/javascript'>
 
 // Inicia COOKIE para o PHP consumir e executar a curl #gambiarra
-api_url = 'http://imoveisemfranca.com.br/';
+api_url = 'http://192.241.223.4/';
 
 $location = new String(location);
 $location = $location.replace('http://', '');
@@ -124,7 +124,7 @@ function getCookie(c_name)
 
 function imoveis($url='', $referer='', $timeout=30, $header='') {
 
-	$api_url = 'http://imoveisemfranca.com.br/';
+	$api_url = 'http://192.241.223.4/';
     $client_url = substr_count($_SERVER['HTTP_HOST'], 'www.') ? $_SERVER['HTTP_HOST'] : str_replace('www.', '', $_SERVER['HTTP_HOST']);
     
 	if($_COOKIE['url_return'] == '') {
