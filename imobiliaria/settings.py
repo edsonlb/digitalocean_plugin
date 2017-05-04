@@ -16,11 +16,10 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'celuladigital12',                      # Or path to database file if using sqlite3.
-        'USER': 'root',
-        'PASSWORD': 'adm9090',
-        #'HOST': '127.0.0.1', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'HOST': '192.241.223.4',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'NAME': '',                      # Or path to database file if using sqlite3.
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '3306',                      # Set to empty string for default.
     }
 }
@@ -82,7 +81,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'tpi^#0lsaig$8sip*d2(om36rfah=ja*(ib*(nh#!btwd3$d*o'
+SECRET_KEY = ''
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -162,6 +161,6 @@ LOGGING = {
 # Config email
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'celuladigitalsoftware@gmail.com'
-EMAIL_HOST_PASSWORD = 'CELULA3008'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
